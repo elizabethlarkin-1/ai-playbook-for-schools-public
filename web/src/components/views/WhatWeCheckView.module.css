@@ -1,0 +1,9 @@
+/* How we check the tools: a plain-language explainer page. */
+.page { display: grid; gap: 16px; max-width: 72ch; }
+.title { margin: 0; font-size: var(--display-xl); font-weight: var(--weight-black); text-transform: uppercase; letter-spacing: var(--tracking-tight); line-height: 1; }
+.lead { margin: 0; font-size: var(--text-base); }
+
+.card { background: var(--surface); border: var(--border) solid var(--ink); border-radius: var(--radius-lg); box-shadow: var(--lift) var(--pop); padding: 16px 18px; display: grid; gap: 8px; }
+.card h3 { margin: 0; font-size: var(--display-md); font-weight: var(--weight-black); text-transform: uppercase; letter-spacing: var(--tracking-tight); line-height: 1.05; }
+.card p { margin: 0; font-size: var(--text-md); }
+.card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: var(--text-md); }

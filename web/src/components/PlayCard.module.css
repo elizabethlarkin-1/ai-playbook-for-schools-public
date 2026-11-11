@@ -1,0 +1,16 @@
+/* Play and system-prompt cards (used by PlaysView and SystemPromptsView). */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+@media (max-width: 420px) { .grid { grid-template-columns: 1fr; } }
+
+.card { background: var(--surface); border: var(--border) solid var(--ink); border-radius: var(--radius-lg); padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; box-shadow: var(--lift) var(--pop); }
+.card h3 { font-size: var(--display-lg); font-weight: var(--weight-heavy); overflow-wrap: anywhere; }
+.template { box-shadow: var(--lift) var(--blue); border-style: dashed; }
+.number { font-family: var(--font-display); font-weight: var(--weight-black); color: var(--pop); font-size: var(--text-base); letter-spacing: .06em; text-transform: uppercase; line-height: 1; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.prompt { margin: 0; white-space: pre-wrap; word-break: break-word; background: var(--surface-2); border-radius: var(--radius-md); padding: 12px; font: var(--text-sm)/1.5 var(--font-mono); max-height: 260px; overflow: auto; }
+.tip { font-size: var(--text-sm); color: var(--ink-soft); margin: 0; }
+.toolChip { border: var(--border-thin) solid var(--c); background: transparent; border-radius: var(--radius-pill); padding: var(--chip-pad-sm); font-size: var(--text-xs); cursor: pointer; color: var(--ink); }
+.toolChip:hover { background: var(--c); color: var(--surface); }
+.details { border: var(--border-thin) solid var(--line); border-radius: var(--radius-md); padding: 8px 12px; font-size: var(--text-sm); }
+.details summary { cursor: pointer; font-weight: var(--weight-bold); }
+.details p { margin: 6px 0 0; }

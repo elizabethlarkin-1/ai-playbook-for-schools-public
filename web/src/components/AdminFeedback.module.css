@@ -1,0 +1,18 @@
+/* Admin: the feedback review queue and the reward settings form. */
+.queue { display: grid; gap: 12px; max-width: 860px; }
+.queue > :global(.seg) { justify-self: start; }
+
+.item { display: grid; gap: 10px; background: var(--surface); border: var(--border) solid var(--ink); border-radius: var(--radius-lg); padding: 14px 16px; }
+.item h3 { font-size: var(--display-md); }
+.meta { font-size: var(--text-sm); color: var(--ink-soft); }
+.body { margin: 0; white-space: pre-wrap; font-size: var(--text-md); }
+.item audio { max-width: 100%; }
+.note { width: 100%; border: var(--border) solid var(--line); border-radius: var(--radius-md); padding: 8px 10px; background: var(--surface); }
+.note:focus { border-color: var(--blue); outline: none; }
+
+.settings { display: grid; gap: 14px; max-width: 560px; background: var(--surface); border: var(--border) solid var(--line); border-radius: var(--radius-lg); padding: 16px; }
+.settings input { max-width: 160px; }
+
+/* The person's original words, shown after an admin corrected the transcript */
+.original { font-size: var(--text-sm); color: var(--ink-soft); }
+.original p { margin: 6px 0 0; white-space: pre-wrap; }

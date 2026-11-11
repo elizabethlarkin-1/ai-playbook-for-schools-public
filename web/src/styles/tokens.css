@@ -1,0 +1,134 @@
+/* Design tokens. web/STYLEGUIDE.md documents each one; update both together.
+   Every color is set three times: light on :root, then dark under the OS setting and under
+   [data-theme="dark"]. Keep the two dark blocks in sync (no light-dark(): older iPads). */
+
+:root {
+  /* Surfaces and text */
+  --bg: #f7f3fc;
+  --surface: #ffffff;
+  --surface-2: #efe7f8;
+  --line: #dcd0ec;
+  --ink: #2a1d3d;
+  --ink-soft: #66597a;
+
+  /* Brand (--blue/--red/--green/--gold are historical names; tool categories in the database use them) */
+  --pop: #cc1e6c;
+  --blue: #5b3cc4;
+  --red: #a3246f;
+  --green: #8a6fd8;
+  --gold: #a842a8;
+  --plum: #7a3c9c;
+  --hi: #ffc8e3;
+  --hi-ink: #2a1d3d;
+  --on-pop: #ffffff;
+
+  /* Status */
+  --ok: #2a7353;
+  --warn: #9a5b00;
+  --sdg: #c5192d;
+
+  /* Tints: a color mixed into --surface */
+  --pop-tint: color-mix(in srgb, var(--pop) 8%, var(--surface));
+  --pop-tint-strong: color-mix(in srgb, var(--pop) 15%, var(--surface));
+  --blue-tint: color-mix(in srgb, var(--blue) 10%, var(--surface));
+  --blue-tint-strong: color-mix(in srgb, var(--blue) 15%, var(--surface));
+  --ok-tint: color-mix(in srgb, var(--ok) 9%, var(--surface));
+  --warn-tint: color-mix(in srgb, var(--warn) 9%, var(--surface));
+  --sdg-tint: color-mix(in srgb, var(--sdg) 8%, var(--surface));
+  --hi-tint: color-mix(in srgb, var(--hi) 30%, var(--surface));
+  --hi-tint-soft: color-mix(in srgb, var(--hi) 14%, var(--surface));
+
+  /* Other */
+  --backdrop: rgba(20, 10, 30, .5);
+  --shadow: 0 1px 2px rgba(42, 29, 61, .06), 0 6px 18px rgba(42, 29, 61, .07);
+
+  /* Typography (--font-bsd and --font-ahl come from next/font in app/layout.tsx) */
+  --font-display: var(--font-bsd), "Big Shoulders Fallback", "Arial Narrow", "Avenir Next Condensed", system-ui, sans-serif;
+  --font-body: var(--font-ahl), "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-2xs: 12px;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-md: 15px;
+  --text-base: 16px;
+  --text-lg: 18px;
+
+  --display-xs: 17px;
+  --display-sm: 19px;
+  --display-md: 24px;
+  --display-lg: 25px;
+  --display-xl: 28px;
+  --display-2xl: 34px;
+  --display-hero: clamp(30px, 5vw, 52px);
+  --display-rank: 48px;
+
+  --weight-regular: 400;
+  --weight-bold: 700;
+  --weight-heavy: 800;
+  --weight-black: 900;
+
+  --tracking-tight: .02em;
+  --tracking: .04em;
+  --tracking-wide: .08em;
+  --tracking-widest: .1em;
+
+  /* Shape */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-pill: 99px;
+  --border: 2px;
+  --border-thin: 1.5px;
+  --focus-ring: 3px solid var(--blue);
+
+  /* Sticker shadows: box-shadow: var(--lift) <color> */
+  --lift-sm: 3px 3px 0;
+  --lift: 4px 4px 0;
+  --lift-lg: 6px 6px 0;
+  --lift-xl: 7px 7px 0;
+
+  /* Controls */
+  --btn-pad: 7px 14px;
+  --btn-pad-sm: 4px 10px;
+  --chip-pad: 4px 12px;
+  --chip-pad-sm: 2px 10px;
+  --field-pad: 10px 14px;
+  --icon-btn: 38px;
+
+  /* Layout */
+  --page-max: 1180px;
+  --gutter: 16px;
+
+  /* Motion */
+  --dur-fast: .12s;
+  --dur: .15s;
+  --dur-slow: .25s;
+
+  /* Layers */
+  --z-header: 5;
+  --z-backbar: 8;
+  --z-safe-area: 10;
+  --z-tooltip: 50;
+  --z-popover: 55;
+  --z-toast: 60;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d1528; --surface: #271d35; --surface-2: #31253f; --line: #43355a; --ink: #f3ecfb; --ink-soft: #b9a9cc;
+    --pop: #ff7ab3; --blue: #b49bff; --red: #ff8fcf; --green: #c9b6ff; --gold: #f0a0ee; --plum: #d9a8f0; --hi: #ff9fcd; --hi-ink: #1d1528; --on-pop: #1d1528;
+    --ok: #7fd6ac; --warn: #f2c26b; --sdg: #ff8a95;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 22px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1d1528; --surface: #271d35; --surface-2: #31253f; --line: #43355a; --ink: #f3ecfb; --ink-soft: #b9a9cc;
+  --pop: #ff7ab3; --blue: #b49bff; --red: #ff8fcf; --green: #c9b6ff; --gold: #f0a0ee; --plum: #d9a8f0; --hi: #ff9fcd; --hi-ink: #1d1528; --on-pop: #1d1528;
+  --ok: #7fd6ac; --warn: #f2c26b; --sdg: #ff8a95;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 22px rgba(0, 0, 0, .25);
+  color-scheme: dark;
+}

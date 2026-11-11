@@ -1,0 +1,8 @@
+/* Membership page: status box and the two ways in. */
+.wrap { max-width: 760px; }
+.status { display: grid; gap: 2px; border: var(--border) dashed var(--pop); border-radius: var(--radius-lg); background: var(--pop-tint); padding: 12px 14px; font-size: var(--text-sm); }
+.status b { font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--display-xs); letter-spacing: var(--tracking); text-transform: uppercase; color: var(--pop); }
+.ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.way { border: var(--border) solid var(--ink); border-radius: var(--radius-lg); padding: 14px; display: grid; gap: 8px; align-content: start; }
+.way h3 { font-size: var(--display-md); font-weight: var(--weight-black); text-transform: uppercase; }
+.way p { margin: 0; }

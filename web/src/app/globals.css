@@ -1,0 +1,7 @@
+/* Global styles: design tokens, reset and base, and shared primitives only.
+   Each component's own styles live next to it in Component.module.css.
+   Look: a varsity playbook on a lavender whiteboard (light) or aubergine chalkboard (dark).
+   Reference: web/STYLEGUIDE.md. */
+@import "../styles/tokens.css";
+@import "../styles/base.css";
+@import "../styles/primitives.css";

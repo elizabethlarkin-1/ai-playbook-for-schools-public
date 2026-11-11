@@ -1,0 +1,14 @@
+/* Top 5 by Role: a numbered list of prompts per role. */
+.hero h2 { font-size: var(--display-xl); font-weight: var(--weight-black); text-transform: uppercase; letter-spacing: var(--tracking-tight); margin-bottom: 6px; }
+.hero p { margin: 4px 0 14px; max-width: 68ch; }
+
+.list { display: grid; gap: 12px; max-width: 860px; }
+.item { display: grid; grid-template-columns: 64px 1fr; gap: 4px 16px; align-items: start; background: var(--surface); border: var(--border) solid var(--ink); border-radius: var(--radius-lg); padding: 14px 16px; box-shadow: var(--lift) var(--pop); min-width: 0; }
+.rank { grid-row: span 4; font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--display-rank); line-height: .9; color: var(--pop); text-align: center; }
+.item h3 { font-size: var(--display-md); font-weight: var(--weight-heavy); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; overflow-wrap: anywhere; }
+.item p { margin: 0; font-size: var(--text-md); min-width: 0; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+.row.tight { margin-top: 2px; }
+.kindPlay { background: var(--pop-tint-strong); font-family: var(--font-body); }
+.kindSys { background: var(--blue-tint-strong); font-family: var(--font-body); }
+@media (max-width: 520px) { .item { grid-template-columns: 44px 1fr; gap: 4px 10px; } .rank { font-size: 36px; } .item h3 { font-size: 21px; } }

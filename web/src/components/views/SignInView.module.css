@@ -1,0 +1,9 @@
+/* Sign in: Google/Microsoft buttons, an "or" divider, and the email-link form. */
+.oauth { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.oauth :global(.btn) { justify-content: center; }
+@media (max-width: 480px) { .oauth { grid-template-columns: 1fr; } }
+.or { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); font-size: var(--text-xs); }
+.or::before, .or::after { content: ""; flex: 1; border-top: var(--border-thin) dashed var(--line); }
+.form { gap: 8px; }
+.form input { border-radius: var(--radius-pill); padding: var(--field-pad); }
+.form :global(.btn) { justify-content: center; }

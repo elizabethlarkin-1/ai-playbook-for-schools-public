@@ -1,0 +1,5 @@
+/* System Prompts: intro beside the "Student data stays home" box (cards use PlayCard.module.css). */
+.hero { display: grid; grid-template-columns: 1fr minmax(240px, 340px); gap: 16px; margin-bottom: 18px; align-items: start; }
+.hero h2 { font-size: var(--display-xl); font-weight: var(--weight-black); text-transform: uppercase; letter-spacing: var(--tracking-tight); margin-bottom: 6px; }
+.hero p { margin: 0; max-width: 68ch; }
+@media (max-width: 760px) { .hero { grid-template-columns: 1fr; } }

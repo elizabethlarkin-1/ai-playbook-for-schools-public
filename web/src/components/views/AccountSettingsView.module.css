@@ -1,0 +1,6 @@
+/* Account settings: current email, pending-change notice, change-email form. */
+.wrap { gap: 18px; }
+.current { display: grid; gap: 2px; overflow-wrap: anywhere; }
+.notice { background: var(--blue-tint); border: var(--border-thin) solid var(--blue); border-radius: var(--radius-md); padding: 10px 14px; font-size: var(--text-md); overflow-wrap: anywhere; }
+.form { display: grid; gap: 10px; border-top: var(--border-thin) dashed var(--line); padding-top: 14px; }
+.form h3 { margin: 0; font-size: var(--display-md); font-weight: var(--weight-black); text-transform: uppercase; letter-spacing: var(--tracking-tight); }

@@ -1,0 +1,38 @@
+/* The Roster: "Your playbook" bar, role picker, filters, and the tool cards or table. */
+.yourBar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; background: var(--hi-tint); border: var(--border) solid var(--hi); border-radius: var(--radius-lg); padding: 10px 14px; margin-bottom: 18px; }
+.yourBar :global(.label) { color: var(--ink); }
+.yourBarText { flex: 1 1 260px; min-width: 0; }
+
+.heading { font-size: var(--display-md); font-weight: var(--weight-black); text-transform: uppercase; letter-spacing: var(--tracking-tight); margin-bottom: 10px; }
+.heading small { display: block; font-family: var(--font-body); font-weight: var(--weight-regular); text-transform: none; color: var(--ink-soft); font-size: var(--text-md); letter-spacing: 0; margin-top: 2px; }
+.resultLine { margin: 0 0 14px; color: var(--ink-soft); font-size: var(--text-sm); }
+.resultLine p { margin: 0; }
+.resultLine .filtersOn { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 4px; }
+.filtersOn b { color: var(--ink); }
+
+/* Cards: a varsity stripe in the tool's category color (--c) and a matching sticker shadow */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.card { position: relative; background-color: var(--surface); background-image: linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)); background-size: 100% 5px, 100% 2px; background-position: 0 0, 0 9px; background-repeat: no-repeat; border: var(--border) solid var(--ink); border-radius: var(--radius-lg); display: flex; flex-direction: column; box-shadow: var(--lift) var(--c); transition: transform var(--dur), box-shadow var(--dur); min-width: 0; animation: pop var(--dur-slow) ease-out both; }
+.card:hover { transform: translate(-2px, -2px) rotate(-.3deg); box-shadow: var(--lift-xl) var(--c); }
+.cardHead { display: flex; gap: 12px; align-items: flex-start; padding: 22px 16px 10px; }
+.cardTitle { min-width: 0; }
+.cardTitle h3 { font-size: var(--display-lg); font-weight: var(--weight-heavy); letter-spacing: .01em; overflow-wrap: anywhere; }
+.company { font-size: var(--text-sm); color: var(--ink-soft); overflow-wrap: anywhere; }
+.desc { padding: 0 16px; margin: 0 0 12px; font-size: var(--text-md); flex: 1; overflow-wrap: anywhere; }
+.cardRow { padding: 0 16px; margin: 0 0 12px; }
+.cardRow.tight { margin-bottom: 10px; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; border-top: var(--border-thin) dashed var(--line); }
+.stats > div { padding: 10px 16px; min-width: 0; }
+.stats > div + div { border-left: var(--border-thin) dashed var(--line); }
+.statValue { font-weight: var(--weight-bold); font-size: var(--text-md); }
+.foot { display: flex; gap: 8px; padding: 12px 16px 14px; border-top: var(--border-thin) dashed var(--line); align-items: center; flex-wrap: wrap; }
+
+/* Table layout */
+.table { min-width: 880px; }
+.table tbody tr { cursor: pointer; }
+.table tbody tr:hover { background: var(--surface-2); }
+.toolName { font-weight: var(--weight-bold); }
+
+/* "Filter this list" help: a small round "i" inside the right end of the filter box. */
+.filterInput.filterInput { padding-right: 46px; } /* doubled class beats the shared `.search input` rule */
+.filterHelp { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); }

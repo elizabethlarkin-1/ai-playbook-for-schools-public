@@ -1,0 +1,25 @@
+/* The scouting report: a full-height drawer on the right (full width on phones). */
+.drawer { margin: 0 0 0 auto; height: 100%; max-height: 100%; width: min(620px, 100%); max-width: 100%; border: 0; border-left: var(--border) solid var(--ink); padding: 0; background: var(--surface); color: var(--ink); }
+.inner { padding: calc(20px + env(safe-area-inset-top, 0px)) max(22px, env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) 22px; display: grid; gap: 20px; }
+
+.top { display: flex; gap: 14px; align-items: flex-start; }
+.topText { min-width: 0; }
+.name { font-size: var(--display-2xl); font-weight: var(--weight-black); overflow-wrap: anywhere; }
+
+.section { display: grid; gap: 6px; }
+.section p { margin: 0; overflow-wrap: anywhere; }
+.section ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.small { font-size: var(--text-sm); }
+.smaller { font-size: var(--text-xs); }
+
+.uses { display: flex; flex-wrap: wrap; gap: 6px; }
+.uses > span { background: var(--surface-2); border-radius: var(--radius-sm); padding: 3px 9px; font-size: var(--text-sm); }
+.playLink { border: var(--border-thin) solid var(--pop); background: var(--pop-tint); color: var(--ink); border-radius: var(--radius-sm); padding: 3px 9px; font-size: var(--text-sm); font-weight: var(--weight-bold); cursor: pointer; text-align: left; }
+.playLink:hover, .playLink:focus-visible { background: var(--pop); color: var(--on-pop); }
+
+/* "Where your data goes": three labeled rows; labels sit beside the answer on wider screens. */
+.where { margin: 0; display: grid; gap: 8px; }
+.where > div { display: grid; grid-template-columns: 15em 1fr; gap: 2px 12px; }
+.where dt { font-weight: var(--weight-bold); }
+.where dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 520px) { .where > div { grid-template-columns: 1fr; } }

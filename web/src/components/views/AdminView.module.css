@@ -1,0 +1,12 @@
+/* Coach's office: tabs for feedback, people and settings; sign-up numbers and the people table. */
+.admin { display: grid; gap: 14px; }
+.admin h2 { font-size: var(--display-xl); font-weight: var(--weight-black); text-transform: uppercase; }
+.tabs { justify-self: start; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+.stats > div { background: var(--surface); border: var(--border-thin) solid var(--line); border-radius: var(--radius-md); padding: 8px 10px; font-size: var(--text-sm); color: var(--ink-soft); }
+.stats b { display: block; font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--display-xl); line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.people { min-width: 760px; }
+.name { font-weight: var(--weight-bold); }
+.num { font-variant-numeric: tabular-nums; }

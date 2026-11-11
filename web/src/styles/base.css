@@ -1,0 +1,52 @@
+/* Reset and base elements. Component styles live in each component's .module.css. */
+
+/* Stand-in for Big Shoulders while it downloads: Arial Bold scaled so lines are about the same width,
+   so headings and tabs don't re-wrap (and shift the page) when the real font arrives. next/font has
+   no metrics for Big Shoulders, so these were measured against our uppercase 800/900 headings
+   (Arimo and Liberation Sans have Arial's metrics). */
+@font-face {
+  font-family: "Big Shoulders Fallback";
+  src: local("Arial"), local("ArialMT"), local("Arimo"), local("Liberation Sans");
+  size-adjust: 74%;
+  ascent-override: 133%;
+  descent-override: 29%;
+  line-gap-override: 0%;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { color-scheme: light; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: var(--text-base)/1.55 var(--font-body);
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+  /* The whiteboard dot grid */
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+/* Paints the phone's top safe area so content never scrolls under the status bar */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: var(--z-safe-area); background: var(--bg); }
+
+a { color: var(--blue); }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: var(--focus-ring); outline-offset: 2px; border-radius: var(--radius-xs); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+dialog::backdrop { background: var(--backdrop); }
+
+kbd {
+  font: var(--weight-bold) var(--text-2xs)/1 var(--font-mono);
+  border: var(--border-thin) solid var(--line); border-bottom-width: 3px; border-radius: 5px;
+  padding: 2px 6px; background: var(--surface-2); color: var(--ink);
+}
+
+@keyframes blink { 50% { opacity: .25; } }
+@keyframes pop { from { transform: scale(.96); opacity: .4; } to { transform: none; opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

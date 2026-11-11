@@ -1,0 +1,295 @@
+WEBVTT
+
+00:00:00.800 --> 00:00:02.772
+This is AI Playbook for Schools:
+
+00:00:02.812 --> 00:00:06.326
+a responsible AI guide that helps school staff choose tools
+
+00:00:06.366 --> 00:00:09.330
+that protect student privacy and work for every student.
+
+00:00:10.332 --> 00:00:12.814
+School staff are the experts on their students,
+
+00:00:12.854 --> 00:00:15.707
+and AI is already part of their work:
+
+00:00:15.747 --> 00:00:18.078
+about six in ten teachers in the U.S.,
+
+00:00:18.118 --> 00:00:20.123
+and two in three teachers in Canada,
+
+00:00:20.163 --> 00:00:23.316
+use AI tools. Here's the problem.
+
+00:00:23.356 --> 00:00:26.408
+Every week brings a new AI tool to judge:
+
+00:00:26.448 --> 00:00:28.194
+what it costs, whether it's fair,
+
+00:00:28.234 --> 00:00:30.652
+and whether student data stays safe.
+
+00:00:30.692 --> 00:00:33.554
+Each school has to answer those questions on its own,
+
+00:00:33.594 --> 00:00:35.982
+often with only the vendor's marketing to go on.
+
+00:00:36.984 --> 00:00:40.005
+Elizabeth Larkin is an AI-native developer
+
+00:00:40.045 --> 00:00:42.176
+and analyst with Stone Arch Collective,
+
+00:00:42.216 --> 00:00:45.098
+a Minnesota cooperative of AI practitioners who
+
+00:00:45.138 --> 00:00:47.752
+help schools and organizations use AI well.
+
+00:00:47.792 --> 00:00:49.706
+While she was helping high school leaders in a
+
+00:00:49.746 --> 00:00:52.884
+Minnesota public school district plan how to use AI,
+
+00:00:52.924 --> 00:00:56.091
+they told her that they and their staff spend a lot of
+
+00:00:56.131 --> 00:00:59.841
+time checking AI tools against their district's AI policy.
+
+00:00:59.881 --> 00:01:02.466
+So we built a playbook that starts with their role,
+
+00:01:02.506 --> 00:01:04.341
+and puts the facts side by side,
+
+00:01:04.381 --> 00:01:06.058
+so they can choose tools faster
+
+00:01:06.098 --> 00:01:07.794
+and spend that time on students.
+
+00:01:08.797 --> 00:01:11.946
+Special educators know what their students need.
+
+00:01:11.986 --> 00:01:13.603
+Pick your role, and the tools built
+
+00:01:13.643 --> 00:01:15.197
+for that work move to the front.
+
+00:01:16.198 --> 00:01:19.472
+Filter by cost and by the systems your district already runs,
+
+00:01:19.512 --> 00:01:21.805
+so nobody starts from scratch.
+
+00:01:21.845 --> 00:01:24.678
+Not sure how a filter works? Tap the i.
+
+00:01:25.678 --> 00:01:28.459
+Every badge is a fact from the company's own website,
+
+00:01:28.499 --> 00:01:30.830
+explained in plain words. Tap it
+
+00:01:30.870 --> 00:01:34.228
+to see exactly what they promise, one topic at a time.
+
+00:01:35.230 --> 00:01:37.821
+The scouting report shows where your data goes:
+
+00:01:37.861 --> 00:01:40.718
+where it's stored, and where it may be sent to be processed,
+
+00:01:40.758 --> 00:01:42.442
+even when the company doesn't say.
+
+00:01:42.482 --> 00:01:44.818
+It also lists what a tool doesn't offer,
+
+00:01:44.858 --> 00:01:46.790
+so staff can ask the right questions
+
+00:01:46.830 --> 00:01:48.870
+before any student information goes in.
+
+00:01:49.871 --> 00:01:51.823
+If a company hasn't published a fact,
+
+00:01:51.863 --> 00:01:55.079
+we don't guess. It's listed under Under review,
+
+00:01:55.119 --> 00:01:56.861
+and we recheck every tool together.
+
+00:01:57.915 --> 00:02:01.470
+Copy-ready prompts protect student privacy by design.
+
+00:02:01.510 --> 00:02:03.859
+And as staff rate tools, the ones people in
+
+00:02:03.899 --> 00:02:05.915
+your role trust most rise for your role.
+
+00:02:07.750 --> 00:02:10.588
+Behind the scenes, AI does the heavy lifting,
+
+00:02:10.628 --> 00:02:13.825
+and people stay in charge. Claude Code helps us
+
+00:02:13.865 --> 00:02:16.444
+research and recheck each company's own pages,
+
+00:02:16.484 --> 00:02:18.105
+and a person approves every fact.
+
+00:02:18.145 --> 00:02:20.249
+Voice reviews become text through the
+
+00:02:20.289 --> 00:02:22.313
+browser's own speech recognition,
+
+00:02:22.353 --> 00:02:24.950
+and a person checks every review before it's shown.
+
+00:02:25.952 --> 00:02:28.375
+Anyone can also ask the Coach.
+
+00:02:28.415 --> 00:02:30.213
+Describe your role and your task,
+
+00:02:30.253 --> 00:02:32.168
+never student details, and it
+
+00:02:32.208 --> 00:02:34.014
+answers from the playbook itself:
+
+00:02:34.054 --> 00:02:36.280
+the right play, the recommended tools,
+
+00:02:36.320 --> 00:02:39.282
+and a reminder to keep student information out of AI.
+
+00:02:43.444 --> 00:02:46.962
+Here's the systemic change. Vetting stops being something
+
+00:02:47.002 --> 00:02:49.671
+every school repeats alone and becomes a shared,
+
+00:02:49.711 --> 00:02:52.885
+public resource: one recheck helps every school,
+
+00:02:52.925 --> 00:02:54.815
+including the ones without a tech team.
+
+00:02:54.855 --> 00:02:57.084
+Publishing what companies haven't shared
+
+00:02:57.124 --> 00:02:59.500
+puts pressure on vendors to share more.
+
+00:02:59.540 --> 00:03:01.803
+And rankings come from staff in each role,
+
+00:03:01.843 --> 00:03:03.912
+with fair-average rules that stop gaming,
+
+00:03:03.952 --> 00:03:05.544
+and no paid placement, ever.
+
+00:03:06.544 --> 00:03:08.889
+Educators decide: they rate,
+
+00:03:08.929 --> 00:03:10.923
+review and shape the rankings,
+
+00:03:10.963 --> 00:03:13.363
+and every fact links to its source.
+
+00:03:13.403 --> 00:03:15.494
+When something's wrong, we fix it in the open.
+
+00:03:16.495 --> 00:03:20.436
+Responsible AI isn't only about how a tool is built.
+
+00:03:20.476 --> 00:03:22.895
+It's also about how it's chosen.
+
+00:03:22.935 --> 00:03:26.631
+Every AI tool a teacher picks ends up in front of students:
+
+00:03:26.671 --> 00:03:28.154
+their writing, their questions,
+
+00:03:28.194 --> 00:03:30.381
+sometimes their data. When school
+
+00:03:30.421 --> 00:03:32.018
+staff can see the facts first,
+
+00:03:32.058 --> 00:03:33.693
+like where student data goes,
+
+00:03:33.733 --> 00:03:37.004
+whether the tool works on every device and in every language,
+
+00:03:37.044 --> 00:03:38.558
+and whether it's accessible,
+
+00:03:38.598 --> 00:03:40.212
+they choose tools that protect
+
+00:03:40.252 --> 00:03:41.919
+students and work for all of them.
+
+00:03:41.959 --> 00:03:44.726
+And when every school can make those choices,
+
+00:03:44.766 --> 00:03:48.791
+more students get safe, fair access to good learning tools.
+
+00:03:48.831 --> 00:03:52.293
+That's what UN Sustainable Development Goal 4 asks for:
+
+00:03:52.333 --> 00:03:55.485
+quality education, with equal access for every learner.
+
+00:03:56.486 --> 00:03:58.622
+In future phases, members will be able
+
+00:03:58.662 --> 00:04:00.909
+to add their district's AI policy,
+
+00:04:00.948 --> 00:04:03.469
+so the playbook fits their rules.
+
+00:04:03.509 --> 00:04:06.583
+Stone Arch Collective plans to lead a pilot with schools,
+
+00:04:06.623 --> 00:04:09.906
+starting in Minnesota. As we learn how AI school
+
+00:04:09.946 --> 00:04:12.408
+policies and guidance are applied in other countries,
+
+00:04:12.448 --> 00:04:15.922
+including in Canada, we hope to grow beyond the U.S.
+
+00:04:15.962 --> 00:04:18.066
+We're asking you for introductions to schools
+
+00:04:18.106 --> 00:04:19.936
+and educators who want to help shape it.
+
+00:04:22.446 --> 00:04:25.380
+AI Playbook for Schools.
+
+00:04:25.420 --> 00:04:27.556
+Teach smart. Lead bold. Go team!

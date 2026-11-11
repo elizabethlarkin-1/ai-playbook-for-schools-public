@@ -1,0 +1,12 @@
+.DS_Store
+# Video: tools and files the scripts rebuild
+video/node_modules/
+video/raw/
+video/build/
+video/shots/
+video/out/
+video/page.html
+video/vo/*.aiff
+# Music tried earlier and no longer used
+video/assets/fluffing-a-duck.mp3
+video/assets/highlight-reel.mp3

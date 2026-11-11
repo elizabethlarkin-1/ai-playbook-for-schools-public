@@ -1,0 +1,6 @@
+/* "Members only" lock on a previewed prompt. */
+.lock { display: flex; gap: 8px 10px; flex-wrap: wrap; align-items: center; border: var(--border) dashed var(--pop); border-radius: var(--radius-lg); background: var(--pop-tint); padding: 10px 12px; }
+.compact { border: 0; background: none; padding: 0; }
+.badge { font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--text-sm); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--pop); }
+.badge::before { content: "🔒 "; }
+.text { font-size: var(--text-sm); flex: 1 1 200px; }

@@ -1,0 +1,11 @@
+v01|This is the AI Playbook for Schools: AI game plans for teachers, counselors, admin, and the whole school staff.
+v02|School staff hear about new AI tools every week. This playbook puts the answers in one place: which tool fits your role, what it costs, and whether it keeps student data safe.
+v03|Start by picking your role. Choose Teachers, then a subject, and your top pick moves to the front, followed by the easiest tools to learn.
+v04|Each card stays simple. Hover or tap a tag to see why a tool fits, how it protects student privacy, and its equity check: cost, devices, languages, and accessibility.
+v05|Need a tool that works with your district's systems? Filter by Infinite Campus, PowerSchool, or Schoology, to see what connects.
+v06|Open a scouting report for the full story. Then jump straight to a play that uses the tool, and come right back.
+v07|The plays are copy-ready prompts for real school tasks, from lesson plans to I E P goal drafts. Any play that touches student information reminds you to remove names and I Ds first.
+v08|Red badges tie each play to the U N's Sustainable Development Goal 4, Quality Education. Filter for inclusion plays that help every student learn.
+v09|Set up a system prompt once, and your AI already knows your grade, subject, and school voice. Or start with the top five prompts for your role.
+v10|New to the lingo? Every term has a plain-English pop-up, and search finds tools, plays, and terms in seconds.
+v11|AI Playbook for Schools. Teach smart. Lead bold. Go team!

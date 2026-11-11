@@ -1,0 +1,29 @@
+/* Tag rows on tool cards and in the scouting report. Rows are flush; the parent adds spacing. */
+
+.row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+/* Connects with (SIS / LMS / gradebook) */
+.conn { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; font-size: var(--text-xs); }
+.sys { border: var(--border-thin) solid var(--line); border-radius: var(--radius-sm); padding: 0 7px; background: var(--surface); cursor: help; font-weight: var(--weight-bold); }
+.grade { border-color: var(--blue); }
+.unconfirmed { border-style: dashed; color: var(--ink-soft); font-weight: var(--weight-regular); }
+.mine { border-color: var(--ok); border-style: solid; color: var(--ok); background: var(--ok-tint); }
+.none { color: var(--ink-soft); cursor: help; border-bottom: 1px dotted var(--ink-soft); }
+
+.connList { display: grid; gap: 8px; margin: 0; }
+.connList > div { display: grid; grid-template-columns: 150px 1fr; gap: 8px; font-size: var(--text-sm); border-top: 1px dashed var(--line); padding-top: 6px; }
+@media (max-width: 520px) { .connList > div { grid-template-columns: 1fr; gap: 2px; } }
+.connNote { font-size: var(--text-sm); margin: 6px 0 0; }
+
+/* Equity check list in the scouting report */
+.eqList { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.eqList li { display: grid; grid-template-columns: 22px 150px 1fr; gap: 8px; align-items: start; font-size: var(--text-sm); border-top: 1px dashed var(--line); padding-top: 6px; }
+.eqMark { font-weight: var(--weight-black); text-align: center; }
+.ok { color: var(--ok); }
+.warn { color: var(--warn); }
+.unknown { color: var(--ink-soft); }
+@media (max-width: 520px) { .eqList li { grid-template-columns: 22px 1fr; } .eqList li > span:last-child { grid-column: 2; } }
+
+/* "Top rated by [role]" badge (role-based ranking); "Example" marks demo-only badges */
+.roleRated { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: var(--text-2xs); font-weight: var(--weight-heavy); color: var(--blue); background: var(--blue-tint); border: var(--border-thin) solid var(--blue); border-radius: var(--radius-pill); padding: 2px 10px; cursor: help; }
+.example { font-family: var(--font-display); font-weight: var(--weight-black); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--ink); background: var(--surface); border: var(--border-thin) dashed var(--ink-soft); border-radius: var(--radius-sm); padding: 0 6px; }

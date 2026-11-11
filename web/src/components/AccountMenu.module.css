@@ -1,0 +1,15 @@
+/* Header account control: the "Sign in" button or the signed-in person's menu. */
+.signIn { order: 2; white-space: nowrap; }
+.pending { visibility: hidden; }
+
+.account { order: 2; position: relative; }
+.summary { list-style: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: var(--border) solid var(--ink); background: var(--surface); border-radius: var(--radius-pill); padding: 3px 12px 3px 4px; font-weight: var(--weight-bold); font-size: var(--text-sm); }
+.summary::-webkit-details-marker { display: none; }
+.avatar { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--pop); color: var(--on-pop); font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--text-xs); }
+.who { max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 700px) { .who { display: none; } }
+
+.menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: var(--z-popover); min-width: 230px; background: var(--surface); border: var(--border) solid var(--ink); border-radius: var(--radius-xl); box-shadow: var(--lift) var(--pop); padding: 8px; display: grid; gap: 2px; }
+.menu a, .menu button { all: unset; cursor: pointer; padding: 8px 10px; border-radius: var(--radius-md); font-size: var(--text-md); }
+.menu a:hover, .menu button:hover, .menu a:focus-visible, .menu button:focus-visible { background: var(--surface-2); }
+.email { font-size: var(--text-2xs); padding: 4px 10px 6px; overflow-wrap: anywhere; color: var(--ink-soft); }

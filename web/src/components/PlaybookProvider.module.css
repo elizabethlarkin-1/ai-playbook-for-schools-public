@@ -1,0 +1,70 @@
+/* The playbook shell: header, tabs, demo notice, footer, back bar, toast, tooltip and term pop-up. */
+
+.wrap { max-width: var(--page-max); margin: 0 auto; }
+
+/* Header with its varsity stripes (ink, gap, pink) underneath */
+.header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: var(--z-header); background: var(--bg); padding-top: 18px; box-shadow: 0 3px 0 var(--ink), 0 7px 0 var(--bg), 0 10px 0 var(--pop); margin-bottom: 30px; }
+@media (max-width: 700px), (max-height: 640px) { .header { position: relative; } }
+
+.brand { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.brand > svg { flex: none; order: 1; }
+.title { order: 1; font-size: var(--display-hero); font-weight: var(--weight-black); text-transform: uppercase; letter-spacing: .005em; line-height: 1; }
+.titleFor { color: var(--pop); }
+.demo { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--text-md); letter-spacing: var(--tracking-wide); text-transform: uppercase; color: var(--ink); background: repeating-linear-gradient(-45deg, var(--hi) 0 8px, var(--surface) 8px 16px); border: var(--border) solid var(--ink); border-radius: var(--radius-pill); padding: 3px 12px; transform: translateY(-4px); cursor: help; white-space: nowrap; }
+.demoStack { order: 1; display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+.checkedDate { font-size: var(--text-2xs); font-weight: var(--weight-bold); color: var(--ink-soft); white-space: nowrap; }
+/* The date line and the "How we check" link share one left edge. */
+.checks { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.howLink { font-size: var(--text-2xs); font-weight: var(--weight-bold); color: var(--blue); text-underline-offset: 2px; white-space: nowrap; }
+.howLink:hover { color: var(--ink); }
+.motto { flex-basis: 100%; order: 3; font-family: var(--font-display); font-weight: var(--weight-black); font-size: 22px; letter-spacing: var(--tracking); text-transform: uppercase; color: var(--pop); line-height: 1.1; margin-bottom: -6px; }
+.tagline { flex-basis: 100%; order: 3; font-family: var(--font-display); font-weight: var(--weight-heavy); font-size: var(--display-xs); letter-spacing: .05em; text-transform: uppercase; color: var(--ink); line-height: 1.25; }
+.spacer { order: 2; flex: 1; }
+@media (max-width: 700px) { .tagline { order: 1; font-size: var(--text-md); } .motto { order: 1; font-size: var(--display-sm); } }
+
+.searchBtn { order: 2; display: inline-flex; align-items: center; gap: 8px; border: var(--border) solid var(--ink); background: var(--surface); color: var(--ink-soft); border-radius: var(--radius-pill); padding: 7px 10px 7px 14px; cursor: pointer; font-size: var(--text-sm); min-width: 0; transition: box-shadow var(--dur-fast), transform var(--dur-fast); }
+.searchBtn:hover { transform: translateY(-1px); box-shadow: var(--lift-sm) var(--pop); color: var(--ink); }
+.searchBtn span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 700px) { .searchBtn { order: 10; flex: 1 1 100%; } .searchBtn kbd { display: none; } }
+@media (hover: none) { .searchBtn kbd { display: none; } }
+
+.tabs { display: flex; gap: 4px; margin-top: 14px; overflow-x: auto; scrollbar-width: none; }
+.tab { text-decoration: none; display: inline-block; padding: 10px 14px 12px; font-family: var(--font-display); font-weight: var(--weight-heavy); font-size: var(--display-sm); letter-spacing: var(--tracking-tight); text-transform: uppercase; border-radius: var(--radius-md) var(--radius-md) 0 0; color: var(--ink-soft); white-space: nowrap; position: relative; }
+.tab[aria-current="page"] { color: var(--ink); background: var(--surface); box-shadow: 0 -1px 0 var(--line) inset; }
+.tab[aria-current="page"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 4px; height: 4px; border-radius: var(--radius-xs); background: var(--hi); }
+
+/* Demo notice (at the bottom, inside the footer) */
+.notice { background: var(--surface); border: var(--border) dashed var(--line); border-radius: var(--radius-lg); padding: 14px 18px; margin-bottom: 18px; display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+.notice p { margin: 0; flex: 1 1 320px; min-width: 0; }
+.stamp { font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--text-lg); letter-spacing: var(--tracking); text-transform: uppercase; color: var(--on-pop); background: var(--pop); border-radius: var(--radius-md); padding: 6px 10px; line-height: 1.05; }
+
+.footer { margin-top: 40px; color: var(--ink-soft); font-size: var(--text-sm); }
+.footerLine { margin: 0 0 14px; display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; text-align: center; }
+.footerMotto { font-family: var(--font-display); font-weight: var(--weight-heavy); font-size: 20px; text-transform: uppercase; color: var(--pop); letter-spacing: .03em; }
+
+/* "Back to <tool> report": floats bottom-left on wide screens, docks across the bottom on phones */
+.backbar { position: fixed; left: max(var(--gutter), env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: var(--z-backbar); }
+.backbar :global(.btn) { box-shadow: var(--lift-sm) var(--ink); }
+@media (max-width: 700px) {
+  .backbar { left: 0; right: 0; bottom: 0; background: var(--bg); border-top: var(--border) solid var(--ink); padding: 10px max(var(--gutter), env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(var(--gutter), env(safe-area-inset-left, 0px)); }
+  .backbar :global(.btn) { width: 100%; justify-content: center; }
+}
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: var(--radius-pill); font-weight: var(--weight-bold); z-index: var(--z-toast); box-shadow: var(--shadow); max-width: calc(100% - 32px); }
+
+/* Tooltip for data-tip and glossary terms */
+.tip { position: fixed; z-index: var(--z-tooltip); max-width: 320px; background: var(--ink); color: var(--bg); padding: 10px 13px; border-radius: var(--radius-md); font-size: var(--text-sm); line-height: 1.45; pointer-events: none; box-shadow: var(--shadow); }
+.tip b { font-family: var(--font-display); }
+.tipMore { display: block; margin-top: 6px; font-size: var(--text-2xs); opacity: .8; }
+
+/* Term pop-up: next to the term on wide screens, docked to the bottom on phones */
+.termPop { position: fixed; z-index: var(--z-popover); width: min(360px, calc(100vw - 24px)); background: var(--surface); color: var(--ink); border: var(--border) solid var(--ink); border-radius: var(--radius-xl); box-shadow: var(--lift-lg) var(--pop), var(--shadow); padding: 14px 16px; display: grid; gap: 8px; }
+.termPop p { margin: 0; font-size: var(--text-md); }
+.termPop :global(.x) { width: 34px; height: 34px; font-size: var(--text-lg); }
+.termHead { display: flex; gap: 10px; align-items: flex-start; }
+.termAbbr { font-family: var(--font-display); font-weight: var(--weight-black); font-size: var(--display-xl); line-height: 1; }
+.termFull { font-weight: var(--weight-bold); color: var(--blue); font-size: var(--text-md); }
+.termActions { display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 600px) {
+  .termPop { left: max(12px, env(safe-area-inset-left, 0px)) !important; right: max(12px, env(safe-area-inset-right, 0px)); top: auto !important; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: auto; max-height: 70vh; overflow: auto; }
+}

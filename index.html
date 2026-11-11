@@ -1,0 +1,1145 @@
+<title>AI Playbook for Schools</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Big+Shoulders+Display:wght@700;800;900&display=swap">
+<style>
+/* Layout: the AI Playbook's women's-team look, moved to a high school. Lavender whiteboard (light) / aubergine chalkboard (dark), varsity stripes, role tags. Header + tabs, one view at a time; tool details open in a side drawer. */
+:root {
+  --pop: #e0267a;
+  --bg: #f7f3fc;
+  --surface: #ffffff;
+  --surface-2: #efe7f8;
+  --ink: #2a1d3d;
+  --ink-soft: #66597a;
+  --line: #dcd0ec;
+  --blue: #5b3cc4;
+  --red: #a3246f;
+  --green: #8a6fd8;
+  --gold: #c04fc0;
+  --hi: #ffc8e3;
+  --hi-ink: #2a1d3d;
+  --ok: #2f7d5b;
+  --warn: #9a5b00;
+  --sdg: #c5192d;
+  --shadow: 0 1px 2px rgba(42,29,61,.06), 0 6px 18px rgba(42,29,61,.07);
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Avenir Next Condensed", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d1528; --surface: #271d35; --surface-2: #31253f; --ink: #f3ecfb; --ink-soft: #b9a9cc; --line: #43355a;
+    --pop: #ff7ab3; --blue: #b49bff; --red: #ff8fcf; --green: #c9b6ff; --gold: #f0a0ee; --hi: #ff9fcd; --hi-ink: #1d1528;
+    --ok: #7fd6ac; --warn: #f2c26b; --sdg: #ff8a95;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1d1528; --surface: #271d35; --surface-2: #31253f; --ink: #f3ecfb; --ink-soft: #b9a9cc; --line: #43355a;
+  --pop: #ff7ab3; --blue: #b49bff; --red: #ff8fcf; --green: #c9b6ff; --gold: #f0a0ee; --hi: #ff9fcd; --hi-ink: #1d1528;
+  --ok: #7fd6ac; --warn: #f2c26b; --sdg: #ff8a95;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 22px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.card h3, .card .co, .card .desc, .drawer-top h2, #drawerBody p, .topitem h3, .play h3, .tcard .abbr, .tcard .full, .sd-item b { overflow-wrap: anywhere; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 var(--font-body);
+  margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px;
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 1180px; margin: 0 auto; }
+a { color: var(--blue); }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+.label { font-family: var(--font-display); font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+.muted { color: var(--ink-soft); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Header */
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-top: 18px; box-shadow: 0 3px 0 var(--ink), 0 7px 0 var(--bg), 0 10px 0 var(--pop); margin-bottom: 30px; }
+@media (max-width: 700px), (max-height: 640px) { header.top { position: relative; } }
+.brand { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.brand svg { flex: none; }
+.brand h1 { font-size: clamp(30px, 5vw, 52px); font-weight: 900; text-transform: uppercase; letter-spacing: .005em; line-height: 1; }
+.brand h1 .for { color: var(--pop); }
+.demo { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-display); font-weight: 900; font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); background: repeating-linear-gradient(-45deg, var(--hi) 0 8px, var(--surface) 8px 16px); border: 2px solid var(--ink); border-radius: 99px; padding: 3px 12px; transform: translateY(-4px); cursor: help; white-space: nowrap; }
+.brand .motto { flex-basis: 100%; order: 3; font-family: var(--font-display); font-weight: 900; font-size: 22px; letter-spacing: .04em; text-transform: uppercase; color: var(--pop); line-height: 1.1; margin-bottom: -6px; }
+.brand .tag { flex-basis: 100%; order: 3; font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink); line-height: 1.25; }
+.brand > svg, .brand h1, .brand .demo { order: 1; }
+.brand .spacer { order: 2; flex: 1; } .brand .search-btn { order: 2; }
+@media (max-width: 700px) { .brand .tag { order: 1; font-size: 15px; } .brand .motto { order: 1; font-size: 19px; } }
+.tabs { display: flex; gap: 4px; margin-top: 14px; overflow-x: auto; scrollbar-width: none; }
+.tabs button { border: 0; background: transparent; padding: 10px 14px 12px; font-family: var(--font-display); font-weight: 800; font-size: 19px; letter-spacing: .02em; text-transform: uppercase; cursor: pointer; border-radius: 8px 8px 0 0; color: var(--ink-soft); white-space: nowrap; position: relative; }
+.tabs button[aria-selected="true"] { color: var(--ink); background: var(--surface); box-shadow: 0 -1px 0 var(--line) inset; }
+.tabs button[aria-selected="true"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 4px; height: 4px; border-radius: 4px; background: var(--hi); }
+.tabs .count { font-family: var(--font-body); text-transform: none; letter-spacing: 0; font-size: 12px; background: var(--surface-2); border-radius: 99px; padding: 1px 7px; margin-left: 6px; color: var(--ink-soft); }
+
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--ink); background: var(--surface); padding: 7px 14px; border-radius: 99px; cursor: pointer; font-weight: 700; font-size: 14px; transition: transform .12s, box-shadow .12s; text-decoration: none; color: var(--ink); }
+.btn:hover { transform: translateY(-1px); box-shadow: 3px 3px 0 var(--ink); }
+.btn.primary { background: var(--hi); color: var(--hi-ink); }
+.btn.ghost { border-color: var(--line); }
+.btn.small { padding: 4px 10px; font-size: 13px; }
+
+/* Demo + privacy notices */
+.notice { background: var(--surface); border: 2px dashed var(--line); border-radius: var(--r); padding: 14px 18px; margin-bottom: 18px; display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+.notice p { margin: 0; flex: 1 1 320px; min-width: 0; }
+.notice .stamp { font-family: var(--font-display); font-weight: 900; font-size: 18px; letter-spacing: .04em; text-transform: uppercase; color: #fff; background: var(--pop); border-radius: 8px; padding: 6px 10px; line-height: 1.05; }
+:root[data-theme="dark"] .notice .stamp { color: var(--bg); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .notice .stamp { color: var(--bg); } }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 14px; }
+.search { flex: 1 1 260px; position: relative; }
+.search input { width: 100%; padding: 10px 14px 10px 38px; border: 2px solid var(--line); border-radius: 99px; background: var(--surface); }
+.search input:focus { border-color: var(--blue); outline: none; }
+.search svg { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--ink-soft); }
+select.sel { padding: 9px 12px; border: 2px solid var(--line); border-radius: 99px; background: var(--surface); }
+.seg { display: inline-flex; border: 2px solid var(--line); border-radius: 99px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 8px 12px; cursor: pointer; font-weight: 700; font-size: 14px; color: var(--ink-soft); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+.chips .label { margin-right: 4px; }
+.chip { border: 2px solid var(--line); background: var(--surface); border-radius: 99px; padding: 4px 12px; cursor: pointer; font-size: 14px; display: inline-flex; gap: 6px; align-items: center; }
+.chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+.chips.sub { padding-left: 14px; border-left: 3px solid var(--hi); }
+.chip.small { font-size: 13px; padding: 2px 10px; }
+.result-line { margin: 0 0 14px; color: var(--ink-soft); font-size: 14px; }
+
+/* Role picker */
+.gameplan h2 { font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 10px; }
+.gameplan h2 small { display: block; font-family: var(--font-body); font-weight: 400; text-transform: none; color: var(--ink-soft); font-size: 15px; letter-spacing: 0; margin-top: 2px; }
+.goals { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; margin-bottom: 14px; }
+@media (max-width: 420px) { .goals { grid-template-columns: 1fr 1fr; gap: 8px; } .goal span { display: none; } }
+.goal { text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 10px 12px; cursor: pointer; display: grid; gap: 2px; transition: transform .12s, border-color .12s; }
+.goal:hover { transform: translateY(-2px); border-color: var(--ink); }
+.goal[aria-pressed="true"] { border-color: var(--pop); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pop) 30%, transparent); }
+.goal b { font-family: var(--font-display); font-size: 19px; font-weight: 800; letter-spacing: .01em; line-height: 1.1; }
+.goal span { font-size: 13px; color: var(--ink-soft); }
+
+/* Cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.card { position: relative; background-color: var(--surface); background-image: linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)); background-size: 100% 5px, 100% 2px; background-position: 0 0, 0 9px; background-repeat: no-repeat; border: 2px solid var(--ink); border-radius: var(--r); display: flex; flex-direction: column; box-shadow: 4px 4px 0 var(--c); transition: transform .15s, box-shadow .15s; min-width: 0; }
+.card:hover { transform: translate(-2px, -2px) rotate(-.3deg); box-shadow: 7px 7px 0 var(--c); }
+.card-head { display: flex; gap: 12px; align-items: flex-start; padding: 22px 16px 10px; }
+.mono { flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 17px; background: var(--c); color: var(--surface); border: 2px solid var(--ink); }
+.card h3 { font-size: 25px; font-weight: 800; letter-spacing: .01em; }
+.card .co { font-size: 14px; color: var(--ink-soft); }
+.cat { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 99px; padding: 2px 9px; border: 1.5px solid var(--c); color: var(--ink); margin-top: 6px; }
+.card .desc { padding: 0 16px; margin: 0 0 12px; font-size: 15px; flex: 1; }
+.card-stats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1.5px dashed var(--line); }
+.card-stats > div { padding: 10px 16px; min-width: 0; }
+.card-stats > div + div { border-left: 1.5px dashed var(--line); }
+.card-stats .v { font-weight: 700; font-size: 15px; }
+.card-foot { display: flex; gap: 8px; padding: 12px 16px 14px; border-top: 1.5px dashed var(--line); align-items: center; flex-wrap: wrap; }
+.card-foot .spacer { flex: 1; }
+.checked { font-size: 12px; color: var(--ink-soft); }
+.pips { display: inline-flex; gap: 3px; vertical-align: middle; margin-right: 6px; }
+.pips i { width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid var(--ink); }
+.pips i.on { background: var(--pip); }
+
+/* Free + privacy signals */
+.yes { color: var(--ok); } .part { color: var(--warn); }
+.priv { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px; margin: 0 0 12px; align-items: center; }
+#drawerBody .priv { padding: 0; margin: 0; }
+.pv { font-size: 12px; font-weight: 700; border-radius: 6px; padding: 1px 8px; border: 1.5px solid var(--line); background: var(--surface-2); cursor: help; }
+.pv.ok { border-color: var(--ok); color: var(--ok); background: color-mix(in srgb, var(--ok) 9%, var(--surface)); }
+.pv.warn { border-color: var(--warn); color: var(--warn); background: color-mix(in srgb, var(--warn) 9%, var(--surface)); }
+.flag { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-display); font-weight: 800; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--pop); border: 1.5px solid var(--pop); border-radius: 99px; padding: 0 8px; margin-left: 6px; vertical-align: 2px; cursor: help; white-space: nowrap; }
+.flag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--pop); animation: blink 1.4s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+
+/* SDG 4 badges + equity check */
+.sdg { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 700; border-radius: 6px; padding: 1px 7px; border: 1.5px solid var(--sdg); color: var(--sdg); background: color-mix(in srgb, var(--sdg) 8%, var(--surface)); cursor: help; white-space: nowrap; }
+.sdg::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--sdg); }
+.eq { font-size: 12px; font-weight: 700; border-radius: 6px; padding: 1px 8px; border: 1.5px dashed var(--ink-soft); cursor: help; }
+.eq b { font-variant-numeric: tabular-nums; }
+.eq.full { border-style: solid; border-color: var(--ok); color: var(--ok); }
+.eqlist { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.eqlist li { display: grid; grid-template-columns: 22px 150px 1fr; gap: 8px; align-items: start; font-size: 14px; border-top: 1px dashed var(--line); padding-top: 6px; }
+.eqlist li > span:first-child { font-weight: 900; text-align: center; }
+.eqlist .ok { color: var(--ok); } .eqlist .warn { color: var(--warn); } .eqlist .unknown { color: var(--ink-soft); }
+@media (max-width: 520px) { .eqlist li { grid-template-columns: 22px 1fr; } .eqlist li > span:last-child { grid-column: 2; } }
+.chip.incl[aria-pressed="false"] { border-color: var(--sdg); }
+
+/* Connects with (SIS / LMS / gradebook) */
+.conn { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; padding: 0 16px; margin: 0 0 12px; font-size: 13px; }
+#drawerBody .conn { padding: 0; margin: 0; }
+.conn .sys { border: 1.5px solid var(--line); border-radius: 6px; padding: 0 7px; background: var(--surface); cursor: help; font-weight: 700; }
+.conn .sys.grade { border-color: var(--blue); }
+.conn .sys.unv { border-style: dashed; color: var(--ink-soft); font-weight: 400; }
+.conn .none { color: var(--ink-soft); cursor: help; border-bottom: 1px dotted var(--ink-soft); }
+.connlist { display: grid; gap: 8px; margin: 0; }
+.connlist div { display: grid; grid-template-columns: 150px 1fr; gap: 8px; font-size: 14px; border-top: 1px dashed var(--line); padding-top: 6px; }
+@media (max-width: 520px) { .connlist div { grid-template-columns: 1fr; gap: 2px; } }
+
+/* Persona tags + Top picks */
+.personas { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 0 16px; margin: 0 0 10px; }
+#drawerBody .personas { padding: 0; margin: 0; }
+.persona { border: 1.5px solid var(--blue); background: color-mix(in srgb, var(--blue) 10%, var(--surface)); color: var(--ink); border-radius: 99px; padding: 1px 9px; font-size: 12px; font-weight: 700; cursor: help; }
+.persona:hover, .persona:focus-visible { background: var(--blue); color: var(--surface); }
+.persona.top { border-color: var(--pop); background: color-mix(in srgb, var(--pop) 14%, var(--surface)); }
+.persona.top:hover, .persona.top:focus-visible { background: var(--pop); color: #fff; }
+.toppick { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font-size: 12px; font-weight: 800; color: #fff; background: var(--pop); border: 0; border-radius: 99px; padding: 3px 10px; cursor: help; }
+:root[data-theme="dark"] .toppick { color: var(--bg); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .toppick { color: var(--bg); } }
+
+/* Table */
+.table-wrap { overflow-x: auto; background: var(--surface); border: 2px solid var(--ink); border-radius: var(--r); }
+table { border-collapse: collapse; width: 100%; min-width: 880px; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--font-display); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; background: var(--surface-2); }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--surface-2); }
+td .name { font-weight: 700; }
+
+/* Term links + pop-ups */
+.term { all: unset; cursor: help; border-bottom: 2px dotted var(--blue); font-weight: 700; color: var(--ink); }
+.term:hover, .term:focus-visible { background: var(--hi); color: var(--hi-ink); border-bottom-style: solid; }
+.term:focus-visible { outline: 2px solid var(--blue); }
+#tip { position: fixed; z-index: 50; max-width: 320px; background: var(--ink); color: var(--bg); padding: 10px 13px; border-radius: 8px; font-size: 14px; line-height: 1.45; pointer-events: none; box-shadow: var(--shadow); }
+#tip b { font-family: var(--font-display); }
+#tip .go { display: block; margin-top: 6px; font-size: 12px; opacity: .8; }
+#termPop { position: fixed; z-index: 55; width: min(360px, calc(100vw - 24px)); background: var(--surface); color: var(--ink); border: 2px solid var(--ink); border-radius: 12px; box-shadow: 5px 5px 0 var(--pop), var(--shadow); padding: 14px 16px; display: grid; gap: 8px; }
+#termPop .tp-head { display: flex; gap: 10px; align-items: flex-start; }
+#termPop .tp-abbr { font-family: var(--font-display); font-weight: 900; font-size: 28px; line-height: 1; }
+#termPop .tp-full { font-weight: 700; color: var(--blue); font-size: 15px; }
+#termPop p { margin: 0; font-size: 15px; }
+#termPop .x { margin-left: auto; width: 34px; height: 34px; font-size: 18px; }
+#termPop .tp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+@media (max-width: 600px) {
+  #termPop { left: max(12px, env(safe-area-inset-left, 0px)) !important; right: max(12px, env(safe-area-inset-right, 0px)); top: auto !important; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: auto; max-height: 70vh; overflow: auto; }
+}
+
+/* Search */
+.search-btn { display: inline-flex; align-items: center; gap: 8px; border: 2px solid var(--ink); background: var(--surface); color: var(--ink-soft); border-radius: 99px; padding: 7px 10px 7px 14px; cursor: pointer; font-size: 14px; min-width: 0; transition: box-shadow .12s, transform .12s; }
+.search-btn:hover { transform: translateY(-1px); box-shadow: 3px 3px 0 var(--pop); color: var(--ink); }
+.search-btn span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+kbd { font: 700 12px/1 ui-monospace, Menlo, Consolas, monospace; border: 1.5px solid var(--line); border-bottom-width: 3px; border-radius: 5px; padding: 2px 6px; background: var(--surface-2); color: var(--ink); }
+@media (max-width: 700px) { .search-btn { order: 10 !important; flex: 1 1 100%; } .search-btn kbd { display: none; } }
+@media (hover: none) { .search-btn kbd, .sd-foot { display: none; } }
+dialog.search-dlg { border: 2px solid var(--ink); border-radius: 14px; padding: 0; width: min(660px, calc(100% - 24px)); max-height: min(78vh, 720px); margin: 9vh auto auto; background: var(--surface); color: var(--ink); box-shadow: 6px 6px 0 var(--pop); overflow: hidden; }
+dialog.search-dlg[open] { display: flex; flex-direction: column; }
+.sd-top { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 2px solid var(--line); color: var(--ink-soft); }
+.sd-top input { flex: 1; min-width: 0; border: 0; background: transparent; font-size: 18px; color: var(--ink); padding: 6px 0; }
+.sd-top input:focus { outline: none; }
+.sd-btn { flex: none; border: 2px solid var(--ink); background: var(--surface); color: var(--ink); border-radius: 99px; padding: 5px 12px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.sd-results { overflow-y: auto; padding: 8px; display: grid; gap: 2px; align-content: start; }
+.sd-group { font-family: var(--font-display); font-weight: 900; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--pop); padding: 10px 10px 4px; }
+.sd-item { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; text-align: left; border: 2px solid transparent; background: transparent; border-radius: 10px; padding: 8px 10px; cursor: pointer; width: 100%; }
+.sd-item[aria-selected="true"], .sd-item:hover { background: var(--surface-2); border-color: var(--line); }
+.sd-item[aria-selected="true"] { border-color: var(--pop); }
+.sd-item .ic { grid-row: span 2; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-display); font-weight: 900; font-size: 13px; color: var(--surface); background: var(--c, var(--blue)); border: 2px solid var(--ink); align-self: center; }
+.sd-item b { font-size: 16px; min-width: 0; }
+.sd-item .sub { font-size: 13px; color: var(--ink-soft); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sd-empty { padding: 22px 14px; text-align: center; }
+.sd-foot { padding: 8px 14px; border-top: 2px solid var(--line); font-size: 12px; }
+@media (max-width: 600px) { dialog.search-dlg { margin: calc(8px + env(safe-area-inset-top, 0px)) auto auto; width: calc(100% - 16px); max-height: calc(100% - 16px - env(safe-area-inset-top, 0px)); } }
+
+/* Drawer */
+dialog.drawer { margin: 0 0 0 auto; height: 100%; max-height: 100%; width: min(620px, 100%); max-width: 100%; border: 0; border-left: 2px solid var(--ink); padding: 0; background: var(--surface); color: var(--ink); }
+dialog::backdrop { background: rgba(20,10,30,.5); }
+.drawer-inner { padding: calc(20px + env(safe-area-inset-top, 0px)) max(22px, env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) 22px; display: grid; gap: 20px; }
+.drawer-top { display: flex; gap: 14px; align-items: flex-start; }
+.drawer-top h2 { font-size: 34px; font-weight: 900; }
+.x { border: 2px solid var(--line); background: var(--surface); border-radius: 50%; width: 38px; height: 38px; cursor: pointer; font-size: 20px; line-height: 1; flex: none; margin-left: auto; }
+.sect { display: grid; gap: 6px; }
+.sect p { margin: 0; }
+.sect ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.uses { display: flex; flex-wrap: wrap; gap: 6px; }
+.uses span { background: var(--surface-2); border-radius: 6px; padding: 3px 9px; font-size: 14px; }
+.playlink { border: 1.5px solid var(--pop); background: color-mix(in srgb, var(--pop) 8%, var(--surface)); color: var(--ink); border-radius: 6px; padding: 3px 9px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: left; }
+.playlink:hover, .playlink:focus-visible { background: var(--pop); color: var(--surface); }
+.backbar { position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 8; }
+.backbar .btn { box-shadow: 3px 3px 0 var(--ink); }
+@media (max-width: 700px) {
+  .backbar { left: 0; right: 0; bottom: 0; background: var(--bg); border-top: 2px solid var(--ink); padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+  .backbar .btn { width: 100%; justify-content: center; }
+  body.has-back { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+}
+.review-box { border: 2px dashed var(--pop); border-radius: var(--r); padding: 12px 14px; background: color-mix(in srgb, var(--pop) 8%, var(--surface)); font-size: 14px; }
+.review-box b { font-family: var(--font-display); font-weight: 900; font-size: 17px; letter-spacing: .04em; text-transform: uppercase; color: var(--pop); display: block; }
+
+/* Plays + system prompts */
+.plays { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+@media (max-width: 420px) { .plays { grid-template-columns: 1fr; } }
+.play { background: var(--surface); border: 2px solid var(--ink); border-radius: var(--r); padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; box-shadow: 4px 4px 0 var(--pop); }
+.play h3 { font-size: 25px; font-weight: 800; }
+.play .playno { font-family: var(--font-display); font-weight: 900; color: var(--pop); font-size: 16px; letter-spacing: .06em; text-transform: uppercase; line-height: 1; }
+.play pre { margin: 0; white-space: pre-wrap; word-break: break-word; background: var(--surface-2); border-radius: 8px; padding: 12px; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; max-height: 260px; overflow: auto; }
+.play .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.play .tip { font-size: 14px; color: var(--ink-soft); margin: 0; }
+.play .tool-chip { border: 1.5px solid var(--c); background: transparent; border-radius: 99px; padding: 2px 10px; font-size: 13px; cursor: pointer; color: var(--ink); }
+.play .tool-chip:hover { background: var(--c); color: var(--surface); }
+.play.template { box-shadow: 4px 4px 0 var(--blue); border-style: dashed; }
+.play .aud { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 99px; padding: 2px 9px; background: var(--blue); color: var(--surface); }
+.play .subj { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 99px; padding: 1px 8px; border: 1.5px solid var(--ink-soft); color: var(--ink-soft); }
+.play details { border: 1.5px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+.play summary { cursor: pointer; font-weight: 700; }
+.guard { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; border-radius: 8px; padding: 8px 10px; border: 1.5px solid var(--pop); background: color-mix(in srgb, var(--pop) 7%, var(--surface)); }
+.guard b { font-family: var(--font-display); font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--pop); white-space: nowrap; }
+.sys-hero { display: grid; grid-template-columns: 1fr minmax(240px, 340px); gap: 16px; margin-bottom: 18px; align-items: start; }
+.sys-hero h2, .top-hero h2 { font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 6px; }
+.sys-hero p, .top-hero p { margin: 0; max-width: 68ch; }
+.top-hero p { margin: 4px 0 14px; }
+.safety { border: 2px solid var(--pop); border-radius: var(--r); padding: 12px 14px; background: color-mix(in srgb, var(--pop) 8%, var(--surface)); font-size: 14px; }
+.safety b { display: block; font-family: var(--font-display); font-weight: 900; font-size: 17px; letter-spacing: .05em; text-transform: uppercase; color: var(--pop); margin-bottom: 2px; }
+@media (max-width: 760px) { .sys-hero { grid-template-columns: 1fr; } }
+
+/* Top 5 */
+.toplist { display: grid; gap: 12px; max-width: 860px; }
+.topitem { display: grid; grid-template-columns: 64px 1fr; gap: 4px 16px; align-items: start; background: var(--surface); border: 2px solid var(--ink); border-radius: var(--r); padding: 14px 16px; box-shadow: 4px 4px 0 var(--pop); min-width: 0; }
+.topitem .rank { grid-row: span 4; font-family: var(--font-display); font-weight: 900; font-size: 48px; line-height: .9; color: var(--pop); text-align: center; }
+.topitem h3 { font-size: 24px; font-weight: 800; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.topitem p { margin: 0; font-size: 15px; min-width: 0; }
+.topitem .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+.kindpill { font-family: var(--font-body); font-size: 12px; font-weight: 700; border-radius: 99px; padding: 2px 9px; border: 1.5px solid var(--ink); }
+.kindpill.play { background: color-mix(in srgb, var(--pop) 15%, var(--surface)); }
+.kindpill.sys { background: color-mix(in srgb, var(--blue) 15%, var(--surface)); }
+.why-btn { border: 1.5px solid var(--line); background: transparent; border-radius: 99px; padding: 2px 10px; font-size: 13px; cursor: help; color: var(--ink); }
+@media (max-width: 520px) { .topitem { grid-template-columns: 44px 1fr; gap: 4px 10px; } .topitem .rank { font-size: 36px; } .topitem h3 { font-size: 21px; } }
+
+/* Glossary */
+.az { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 16px; }
+.az a { text-decoration: none; font-family: var(--font-display); font-weight: 700; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 6px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); }
+.az a.off { opacity: .3; pointer-events: none; }
+.terms { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.tcard { background: var(--surface); border: 2px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 170px; min-width: 0; }
+.tcard .abbr { font-family: var(--font-display); font-weight: 900; font-size: 30px; line-height: 1.05; }
+.tcard .full { font-weight: 700; font-size: 16px; color: var(--blue); line-height: 1.3; }
+.tcard p { margin: 0; font-size: 15px; }
+.tcard .kind { align-self: flex-start; font-size: 12px; font-weight: 700; border-radius: 99px; padding: 1px 8px; background: var(--surface-2); }
+.flash { box-shadow: 0 0 0 5px var(--hi) !important; border-color: var(--ink) !important; }
+
+.empty { text-align: center; padding: 44px 20px; background: var(--surface); border: 2px dashed var(--line); border-radius: var(--r); }
+.empty h3 { margin-bottom: 6px; font-size: 26px; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 99px; font-weight: 700; z-index: 60; box-shadow: var(--shadow); max-width: calc(100% - 32px); }
+footer.foot { max-width: 1180px; margin: 40px auto 0; display: flex; gap: 10px; align-items: center; justify-content: center; color: var(--ink-soft); font-size: 14px; flex-wrap: wrap; text-align: center; }
+footer.foot .big { font-family: var(--font-display); font-weight: 800; font-size: 20px; text-transform: uppercase; color: var(--pop); letter-spacing: .03em; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+@keyframes pop { from { transform: scale(.96); opacity: .4; } to { transform: none; opacity: 1; } }
+.card, .tcard { animation: pop .25s ease-out both; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg width="72" height="50" viewBox="0 0 72 50" aria-hidden="true">
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 5 L18 18 M18 5 L5 18" stroke="var(--blue)" stroke-width="4.5"/>
+          <circle cx="61" cy="33" r="8" stroke="var(--pop)" stroke-width="4.5"/>
+          <path d="M12 25 C 13 46, 33 48, 41 37" stroke="var(--ink)" stroke-width="3.6" stroke-dasharray="5 5"/>
+        </g>
+        <polygon points="49,27 47.5,40.5 37,33" fill="var(--ink)"/>
+      </svg>
+      <h1>AI Playbook <span class="for">for Schools</span></h1>
+      <span class="demo" tabindex="0" data-tip="This is a demo. The tools are real, but the role picks, plays and wording are sample content for review. Prices and privacy notes were checked once; nothing here is district-approved.">Demo · sample content</span>
+      <span class="motto">Teach smart. Lead bold. Go team!</span>
+      <span class="tag">AI Game plans for teachers, counselors, admin &amp; the whole school staff</span>
+      <span class="spacer"></span>
+      <button type="button" class="search-btn" id="searchBtn" aria-keyshortcuts="/"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Search tools, plays &amp; terms</span><kbd>/</kbd></button>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" id="tab-tools" aria-controls="view-tools" aria-selected="true" data-view="tools" type="button">The Roster <span class="count" id="cTools">0</span></button>
+      <button role="tab" id="tab-top" aria-controls="view-top" aria-selected="false" data-view="top" type="button">Top 5 by Role</button>
+      <button role="tab" id="tab-plays" aria-controls="view-plays" aria-selected="false" data-view="plays" type="button">The Plays <span class="count" id="cPlays">0</span></button>
+      <button role="tab" id="tab-sys" aria-controls="view-sys" aria-selected="false" data-view="sys" type="button">System Prompts <span class="count" id="cSys">0</span></button>
+      <button role="tab" id="tab-glossary" aria-controls="view-glossary" aria-selected="false" data-view="glossary" type="button">Lingo &amp; Acronyms <span class="count" id="cTerms">0</span></button>
+    </nav>
+  </header>
+
+  <div class="notice" id="demoNote">
+    <span class="stamp">Demo</span>
+    <p><b>Sample content for a public high school.</b> The tools are real and their prices and privacy notes were checked on official sites on <span id="checkedOn"></span>. Role picks, plays and prompts are examples. Each tool has an <b>Equity check</b> and each play shows the <button type="button" class="term" data-term="sdg4">SDG 4</button> targets it supports. Before anyone uses a tool with student information, check your <button type="button" class="term" data-term="aup">district AI policy</button> and whether the district has a signed <button type="button" class="term" data-term="dpa">DPA</button> with that vendor.</p>
+  </div>
+
+  <!-- TOOLS -->
+  <section id="view-tools" role="tabpanel" aria-labelledby="tab-tools">
+    <div class="gameplan">
+      <h2>Who's on the field?<small>Pick your role to see your best-fit tools, easiest first. Hover or tap a tag to see why it fits.</small></h2>
+      <div class="goals" id="roleGoals"></div>
+      <div class="chips sub" id="subjChips" hidden></div>
+    </div>
+    <div class="controls">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12l-4.5 5.5V13l-3 1.5V8.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <label class="sr" for="q">Filter the roster</label>
+        <input id="q" type="search" placeholder="Filter this list…" autocomplete="off">
+      </div>
+      <button type="button" class="chip" id="freeChip" aria-pressed="false">Free for teachers</button>
+      <button type="button" class="chip" id="dpaChip" aria-pressed="false">Signs district DPAs</button>
+      <button type="button" class="chip" id="schoolChip" aria-pressed="false">Free for whole school</button>
+      <label class="sr" for="worksWith">Works with</label>
+      <select id="worksWith" class="sel"><option value="">Works with: any system</option></select>
+      <div class="seg" role="group" aria-label="Layout">
+        <button type="button" id="vCards" aria-pressed="true">Cards</button>
+        <button type="button" id="vTable" aria-pressed="false">Table</button>
+      </div>
+    </div>
+    <div class="result-line" id="resultLine"></div>
+    <div id="toolsOut"></div>
+  </section>
+
+  <!-- TOP 5 -->
+  <section id="view-top" role="tabpanel" aria-labelledby="tab-top" hidden>
+    <div class="top-hero"><h2>Top 5 by Role</h2><p class="muted">The five prompts each role should try first. Each one is either a <b>Play</b> (a prompt for one task) or a <b>System prompt</b> (instructions you set up once).</p></div>
+    <div class="chips" id="topChips"></div>
+    <div id="topOut"></div>
+  </section>
+
+  <!-- PLAYS -->
+  <section id="view-plays" role="tabpanel" aria-labelledby="tab-plays" hidden>
+    <p class="muted" style="margin-top:0;max-width:72ch">Copy-ready prompts for real school tasks. Swap the <b>[brackets]</b> for your details, then paste into one of the tools listed on the play. Plays marked <b>Student info</b> carry a reminder to strip names and IDs first. Red <b>SDG</b> badges show which target of <button type="button" class="term" data-term="sdg4">UN Sustainable Development Goal 4</button> a play supports; tap one to read the target.</p>
+    <div class="chips" id="playFocus"></div>
+    <div class="chips" id="playChips"></div>
+    <div class="chips sub" id="playSubj" hidden></div>
+    <div class="plays" id="playsOut"></div>
+  </section>
+
+  <!-- SYSTEM PROMPTS -->
+  <section id="view-sys" role="tabpanel" aria-labelledby="tab-sys" hidden>
+    <div class="sys-hero">
+      <div><h2>Set your AI's game plan once</h2>
+        <p>A <button type="button" class="term" data-term="system-prompt">system prompt</button> is a standing set of instructions you paste into an AI tool one time. After that, every chat follows it, so the AI already knows your grade level, your subject and your school's voice. Plays are for one task; system prompts coach the whole season.</p></div>
+      <div class="safety"><b>Student data stays home</b>Never put student names, ID numbers, grades, IEP details or health information in a system prompt. Use only district-approved tools, and follow your district AI policy.</div>
+    </div>
+    <div class="chips" id="sysChips"></div>
+    <div class="plays" id="sysOut"></div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="view-glossary" role="tabpanel" aria-labelledby="tab-glossary" hidden>
+    <div class="controls">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12l-4.5 5.5V13l-3 1.5V8.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <label class="sr" for="gq">Filter the glossary</label>
+        <input id="gq" type="search" placeholder="Filter this list…" autocomplete="off">
+      </div>
+      <div class="seg" role="group" aria-label="Which terms" id="gKinds">
+        <button type="button" data-kind="" aria-pressed="true">All</button>
+        <button type="button" data-kind="school" aria-pressed="false">School</button>
+        <button type="button" data-kind="privacy" aria-pressed="false">Privacy</button>
+        <button type="button" data-kind="ai" aria-pressed="false">AI</button>
+      </div>
+    </div>
+    <nav class="az" id="az" aria-label="Jump to letter"></nav>
+    <div class="terms" id="termsOut"></div>
+  </section>
+</div>
+
+<footer class="foot"><span class="big">Teach smart. Lead bold. Go team!</span><span>· Demo with sample content. Always confirm prices and privacy terms on the vendor's site and with your district.</span></footer>
+
+<div id="tip" role="tooltip" hidden></div>
+<div id="termPop" role="dialog" aria-modal="false" aria-labelledby="termPopTitle" hidden></div>
+<dialog class="drawer" id="drawer" aria-labelledby="drawerTitle"><div class="drawer-inner" id="drawerBody"></div></dialog>
+<div class="backbar" id="backBar" hidden><button type="button" class="btn primary" id="backBtn">← Back</button></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<dialog class="search-dlg" id="searchDlg" aria-label="Search the playbook">
+  <div class="sd-top">
+    <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <label class="sr" for="sq">Search tools, plays and terms</label>
+    <input id="sq" type="text" enterkeyhint="search" placeholder="Try “IEP”, “rubric” or “MagicSchool”" autocomplete="off" spellcheck="false">
+    <button type="button" class="sd-btn" id="sClose" aria-label="Close search">Close</button>
+  </div>
+  <div class="sd-results" id="sResults" role="listbox" aria-label="Search results"></div>
+  <div class="sd-foot muted"><kbd>↑</kbd> <kbd>↓</kbd> to move · <kbd>Enter</kbd> to open · <kbd>Esc</kbd> to close</div>
+</dialog>
+
+<script>
+(() => {
+  "use strict";
+  // ---------- data (demo) ----------
+  const CHECKED = "2026-10-26";
+  const ROLES = {
+    teacher: { label: "Teachers", one: "Teacher", tag: "Teacher", hint: "Plan, differentiate, assess" },
+    sped: { label: "Special Ed & Paras", one: "Special Ed teacher or para", tag: "SpEd", hint: "IEPs, scaffolds, accommodations" },
+    counselor: { label: "Counselors", one: "Counselor", tag: "Counselor", hint: "Families, plans, college & career" },
+    admin: { label: "Administrators", one: "Principal or AP", tag: "Admin", hint: "Staff, schedules, grants" },
+    office: { label: "Front Office & Support", one: "Front office staff", tag: "Office", hint: "Families, notices, translations" },
+    coach: { label: "Coaches & Tech", one: "Instructional coach or tech coordinator", tag: "Coach", hint: "PD, rollout, tool vetting" },
+  };
+  const SUBJECTS = { ela: "ELA", math: "Math", sci: "Science", ss: "Social Studies", wl: "World Languages", cte: "CTE & Electives" };
+  const CATS = {
+    plan: { label: "Teacher toolkit", color: "var(--pop)" },
+    student: { label: "Student-facing classroom", color: "var(--blue)" },
+    general: { label: "General AI assistant", color: "var(--red)" },
+    create: { label: "Design & media", color: "var(--gold)" },
+  };
+  const EASE = { 1: "Easy", 2: "Easy to moderate", 3: "Moderate" };
+  // UN Sustainable Development Goal 4 targets (short wording; see sdgs.un.org/goals/goal4)
+  const SDG = {
+    "4.1": "Every girl and boy completes free, equitable, quality primary and secondary school.",
+    "4.3": "Equal access to affordable technical, vocational and university education.",
+    "4.4": "More youth and adults with skills for jobs and decent work, including technical and digital skills.",
+    "4.5": "Equal access to education for everyone, including people with disabilities, Indigenous peoples and children in vulnerable situations; no gender gaps.",
+    "4.6": "All youth reach literacy and numeracy.",
+    "4.7": "Learners gain knowledge for sustainable development, human rights, gender equality, peace, global citizenship and respect for cultural diversity.",
+    "4.a": "Safe, inclusive learning environments that work for students with disabilities and for all genders.",
+    "4.c": "More qualified teachers, including through teacher training.",
+  };
+  const UNDER_REVIEW = "Under review: we couldn't confirm this on the vendor's site yet. Check before you rely on it.";
+
+  // Each tool: free = "yes" | "limited" | "no" | "review"; dpa = "yes" | "district" | "review"
+  const TOOLS = [
+    { id: "magicschool", name: "MagicSchool", company: "MagicSchool AI", cat: "plan", ease: 1, verified: true, subjects: ["all"],
+      desc: "An all-in-one teacher toolkit with 80+ tools for lesson plans, rubrics, leveled texts and family emails, plus student tools your class can use with guardrails.",
+      uses: ["Lesson plans", "Rubrics", "IEP drafts", "Leveled texts", "Family emails", "Student tools"],
+      personas: [{ id: "teacher", top: true, why: "Covers most weekly planning tasks in one place, and it's free for teachers." }, { id: "sped", why: "Has an IEP generator and accommodation tools for first drafts." }, { id: "coach", why: "Easy first tool for AI PD; districts get dashboards and admin controls." }],
+      free: "yes", pricing: "Free plan for teachers. MagicSchool Plus: $8.33/user/month billed annually, or $12.99/month billed monthly. School and district plans: custom pricing.",
+      privacy: { ferpa: true, ferpaNote: "MagicSchool states FERPA compliance and shows SOC 2 and Common Sense privacy badges.", coppa: true, coppaNote: "MagicSchool states COPPA compliance.", dpa: "yes", dpaNote: "Custom DPAs are offered on Enterprise (school/district) plans.", students: true, studentsNote: "Has student-facing tools that teachers launch and monitor." },
+      connects: {"roster": [{"n": "Clever", "v": true}, {"n": "ClassLink", "v": true}], "lms": [{"n": "Google Classroom", "v": true}, {"n": "Canvas", "v": true}, {"n": "Schoology", "v": true, "via": "through Edlink"}], "grades": [], "paid": "Clever, ClassLink, Canvas and Schoology need the Enterprise (district) plan; Google Classroom works on every plan.", "note": "It can pull student writing in from Canvas or Schoology, but it can't send feedback or grades back."},
+      equity: { free: { s: "warn", t: "Free for teachers; the student tools are listed under paid plans." }, device: { s: "unknown", t: "Device needs aren't published on the pages we checked." }, lang: { s: "ok", t: "Interface in 24 languages; translates into 98." }, access: { s: "ok", t: "Claims WCAG 2.2 AA with published accessibility reports; tested with screen readers." } },
+      urls: ["https://www.magicschool.ai/pricing", "https://www.magicschool.ai/privacy"] },
+    { id: "brisk", name: "Brisk Teaching", company: "Brisk", cat: "plan", ease: 1, verified: true, subjects: ["all"],
+      desc: "A Chrome and Edge extension that works right inside Google Docs, Slides and YouTube: give feedback, change reading levels, or turn a video into a quiz without leaving the page.",
+      uses: ["Feedback on student writing", "Change reading level", "Quizzes from videos", "Works in Google Docs"],
+      personas: [{ id: "teacher", why: "Works inside Docs and Slides you already use, so there's nothing new to learn." }, { id: "sped", why: "One click changes a text's reading level or translates it." }, { id: "coach", why: "Fast win in Google districts; low setup." }],
+      free: "yes", pricing: "Free for teachers. Premium and school plans: custom pricing, charged per student.",
+      privacy: { ferpa: true, ferpaNote: "Brisk states FERPA compliance and says it does not train on student or teacher data.", coppa: true, dpa: "yes", dpaNote: "Brisk says it has signed the National DPA (SDPC) in about two dozen states and will sign district DPAs.", students: true, studentsNote: "Brisk Boost gives students guided AI activities a teacher sets up." },
+      review: "Brisk's own count of states with a signed National DPA is inconsistent on its site. SOC 2 is listed as in progress.",
+      connects: {"roster": [{"n": "ClassLink", "v": true}], "lms": [{"n": "Google Classroom", "v": true}, {"n": "Canvas", "v": true, "via": "LTI 1.3"}, {"n": "Schoology", "v": true, "via": "LTI 1.3"}, {"n": "Blackboard", "v": true}], "grades": [], "paid": "Canvas, Schoology and Blackboard need the Schools & Districts plan.", "note": "Brisk says Microsoft Teams support is in progress."},
+      equity: { free: { s: "warn", t: "Free for teachers; the student tool's premium features need a school plan." }, device: { s: "warn", t: "A Chrome or Edge extension; not supported on phones (the student tool works in a phone browser)." }, lang: { s: "ok", t: "50+ languages." }, access: { s: "unknown", t: "A VPAT (WCAG 2.2 AA) is reportedly available on request; Brisk's page didn't load to confirm." } },
+      urls: ["https://www.briskteaching.com/plans", "https://www.briskteaching.com/privacy/privacy-center"] },
+    { id: "khanmigo", name: "Khanmigo for Teachers", company: "Khan Academy", cat: "plan", ease: 1, verified: false, subjects: ["math", "sci", "ela", "ss"],
+      desc: "Khan Academy's AI teaching assistant for planning lessons, writing questions and building rubrics, from a nonprofit known for math and science practice.",
+      uses: ["Lesson hooks", "Math practice", "Question sets", "Rubrics"],
+      personas: [{ id: "teacher", why: "Strong for math and science, and free for teachers." }, { id: "sped", why: "Step-by-step math explanations help with reteaching." }],
+      free: "yes", pricing: "Free for teachers (18+, eligible countries). Learners and parents: $4/month or $44/year. Districts: request pricing.",
+      privacy: { ferpa: false, ferpaNote: "We didn't find a FERPA statement on the pages checked. Ask Khan Academy or your district.", coppa: null, dpa: "district", dpaNote: "Students get Khanmigo only through a district rollout, which comes with a district agreement.", students: false, studentsNote: "The free teacher version is for adults only; teachers can't give students access." },
+      review: "Privacy and FERPA details weren't on the pages we checked.",
+      connects: {"roster": [{"n": "Clever", "v": true}, {"n": "ClassLink", "v": false}], "lms": [{"n": "Google Classroom", "v": true, "via": "for Clever districts"}, {"n": "Canvas", "v": true, "via": "for Clever districts"}, {"n": "Schoology", "v": true, "via": "for Clever districts"}], "grades": [], "paid": "Only with a Khan Academy district partnership.", "note": "It shares progress and completion data, not grades."},
+      equity: { free: { s: "warn", t: "Free for teachers only; students need a paid district rollout." }, device: { s: "unknown", t: "Mobile apps are reported but weren't confirmed on an official page." }, lang: { s: "unknown", t: "About four dozen languages reported, only 4 fully tested; not confirmed." }, access: { s: "warn", t: "Khan Academy adopted WCAG 2.2 AA and publishes yearly reports, but none specific to Khanmigo." } },
+      urls: ["https://www.khanmigo.ai/pricing"] },
+    { id: "diffit", name: "Diffit", company: "Diffit", cat: "plan", ease: 1, verified: false, subjects: ["ela", "ss", "sci", "wl"],
+      desc: "Type a topic or paste a text, pick a [[lexile|reading level]], and Diffit builds a leveled reading with vocabulary, questions and graphic organizers.",
+      uses: ["Leveled readings", "Vocabulary lists", "Question sets", "Translations"],
+      personas: [{ id: "sped", top: true, why: "Fastest way to get the same content at a reading level every student can access." }, { id: "teacher", why: "Great for ELA, social studies and science readings." }, { id: "coach", why: "Quick demo of differentiation for PD." }],
+      free: "yes", pricing: "Always free for teachers. Individual premium: $14.99 billed monthly or $149.99 billed annually. Premium for schools and districts: custom.",
+      privacy: { ferpa: true, ferpaNote: "Diffit states FERPA compliance and says it collects no student data.", coppa: true, dpa: "yes", dpaNote: "Diffit says it has signed the National DPA and SDPC statewide agreements.", students: false, studentsNote: "Teachers make materials; students get the finished handouts." },
+      connects: {"roster": [{"n": "Clever", "v": false, "via": "launch only"}, {"n": "ClassLink", "v": false, "via": "launch only"}], "lms": [], "grades": [], "note": "Exports to Google, Microsoft and Canva formats on the school plan. Diffit says automatic class syncing is planned."},
+      equity: { free: { s: "ok", t: "Always free for teachers, and students get the finished handouts, so there's no student cost." }, device: { s: "unknown", t: "Web app plus a Chrome extension; other devices aren't stated." }, lang: { s: "ok", t: "70+ languages." }, access: { s: "unknown", t: "WCAG 2.1 AA and a VPAT on request are reported; Diffit's page didn't load to confirm." } },
+      urls: ["https://web.diffit.me/pricing", "https://web.diffit.me/privacy"] },
+    { id: "schoolai", name: "SchoolAI", company: "SchoolAI", cat: "student", ease: 2, verified: true, subjects: ["all"],
+      desc: "Teachers create guided AI \"Spaces\" for students, then watch a live dashboard showing who's stuck, who's done, and who may need a check-in.",
+      uses: ["Guided student AI", "Live class dashboard", "Tutoring", "Check-ins"],
+      personas: [{ id: "teacher", why: "Lets students use AI inside guardrails you set, while you watch progress live." }, { id: "counselor", why: "Says it flags possible crisis language and connects students to trusted adults." }, { id: "coach", why: "A district option for safe student-facing AI." }],
+      free: "limited", pricing: "Free trial with 5 Space launches a year. Pro and district plans through sales; no prices published.",
+      privacy: { ferpa: true, ferpaNote: "SchoolAI states FERPA compliance and SOC 2 Type 2, and says it doesn't train on student data.", coppa: true, dpa: "yes", dpaNote: "Standard DPA in its terms; district DPAs available.", students: true, studentsNote: "Built for students to use AI in teacher-made Spaces." },
+      connects: {"roster": [{"n": "Infinite Campus", "v": true}, {"n": "PowerSchool", "v": true}, {"n": "Skyward", "v": true}, {"n": "Aeries", "v": true}, {"n": "Synergy", "v": true}, {"n": "Clever", "v": true}, {"n": "ClassLink", "v": true}], "lms": [{"n": "Canvas", "v": true}, {"n": "Google Classroom", "v": true}, {"n": "Schoology", "v": true}], "grades": [], "paid": "SIS rostering and full LMS connections need the Pro plan.", "note": "SchoolAI lists 30+ SIS partners but doesn't say whether it connects directly or through a rostering service."},
+      equity: { free: { s: "warn", t: "Free trial only (5 launches a year); student portals need a paid plan." }, device: { s: "unknown", t: "Reported to need a Chrome or Edge browser; not confirmed." }, lang: { s: "ok", t: "60+ languages." }, access: { s: "ok", t: "WCAG 2.1 AA with a published conformance report; screen reader compatible." } },
+      urls: ["https://schoolai.com/pricing", "https://schoolai.com/trust"] },
+    { id: "curipod", name: "Curipod", company: "Curipod", cat: "student", ease: 1, verified: true, subjects: ["all"],
+      desc: "Makes interactive slide lessons with polls, word clouds and drawing activities. Students join with a code and answer live.",
+      uses: ["Interactive lessons", "Polls & exit tickets", "Warm-ups", "Student feedback"],
+      personas: [{ id: "teacher", why: "Turns a topic into an interactive lesson in minutes, free for every teacher." }, { id: "coach", why: "Students join without accounts and there's no student chatbot, which makes approval easier." }],
+      free: "yes", pricing: "Free for every teacher. School and district plans: custom pricing.",
+      privacy: { ferpa: true, ferpaNote: "Curipod states FERPA, COPPA, SOPPA and GDPR compliance.", coppa: true, dpa: "yes", dpaNote: "Custom DPA on the school plan.", students: true, studentsNote: "Students join with a code, no accounts, and Curipod says there are no AI chatbots for students." },
+      connects: {"roster": [{"n": "Clever", "v": true, "via": "sign-in"}, {"n": "ClassLink", "v": true, "via": "sign-in"}], "lms": [], "grades": [], "paid": "Clever and ClassLink sign-in need a district subscription.", "note": "Students join with a code, so there's no class list to sync."},
+      equity: { free: { s: "ok", t: "Students join free without accounts; the free plan has a weekly session limit." }, device: { s: "unknown", t: "Device needs aren't stated; a paper backup is only on the paid school plan." }, lang: { s: "ok", t: "Hundreds of languages, per Curipod." }, access: { s: "unknown", t: "Has a 2025 accessibility report (VPAT), but we couldn't confirm its WCAG level." } },
+      urls: ["https://curipod.com/pricing"] },
+    { id: "gemini", name: "Gemini for Education", company: "Google", cat: "general", ease: 1, verified: true, subjects: ["all"],
+      desc: "Google's [[genai|generative AI]] assistant, included in Google Workspace for Education. It writes, summarizes and translates, and works inside Gmail, Docs and Classroom with your district's protections.",
+      uses: ["Family emails", "Translation", "Summaries", "Gems (saved instructions)", "Works in Gmail & Docs"],
+      personas: [{ id: "counselor", top: true, why: "Already in your district Google account, with protections for school data." }, { id: "office", top: true, why: "Drafts and translates notices right in Gmail and Docs." }, { id: "teacher", why: "Good general helper; save your class setup as a Gem." }, { id: "admin", why: "Summaries and drafts across Workspace." }],
+      free: "yes", pricing: "Included at no charge in all Google Workspace for Education editions (through your district account). Google AI Pro for Education add-on: $15/user/month with a one-year commitment, or $24 month-to-month.",
+      privacy: { ferpa: true, ferpaNote: "Google says Gemini for Education supports FERPA and COPPA compliance, with no training on your data and no human review.", coppa: true, dpa: "district", dpaNote: "Covered by your district's Google Workspace for Education agreement.", students: true, studentsNote: "Admins can turn it on or off by group; stricter rules apply for students under 18." },
+      connects: {"roster": [{"n": "OneRoster", "v": true, "via": "through Google Classroom"}], "lms": [{"n": "Google Classroom", "v": true}, {"n": "Canvas", "v": true, "via": "Gemini LTI"}, {"n": "Schoology", "v": true, "via": "Gemini LTI"}, {"n": "Moodle", "v": true, "via": "Gemini LTI"}], "grades": [{"n": "Infinite Campus", "v": true, "via": "Google Classroom grade export"}, {"n": "PowerSchool", "v": true, "via": "Google Classroom grade export"}, {"n": "Skyward", "v": true, "via": "Google Classroom grade export"}, {"n": "Aspen", "v": true, "via": "Google Classroom grade export"}], "paid": "Sending grades to an SIS needs Google's Education Plus or Teaching & Learning Upgrade license.", "note": "The grade connection is a Google Classroom feature, not part of Gemini itself."},
+      equity: { free: { s: "ok", t: "Included free for students of all ages in Workspace for Education; admins choose who gets it." }, device: { s: "ok", t: "Web, Android and iOS." }, lang: { s: "ok", t: "More than 40 languages." }, access: { s: "warn", t: "Google publishes an accessibility report for Gemini in Workspace apps, but not for the Gemini app itself." } },
+      urls: ["https://edu.google.com/workspace-for-education/editions/compare-editions/"] },
+    { id: "notebooklm", name: "NotebookLM", company: "Google", cat: "general", ease: 2, verified: true, subjects: ["all"],
+      desc: "Upload your own documents, like a handbook, curriculum guide or grant, and ask questions that it [[grounding|answers only from those sources]], with citations. Google now also calls it Gemini Notebook.",
+      uses: ["Answers from your documents", "Policy Q&A", "Study guides", "Audio overviews"],
+      personas: [{ id: "coach", top: true, why: "Answers questions straight from your district policy and curriculum, with citations." }, { id: "admin", why: "Turns long grants and handbooks into briefs you can trust." }, { id: "teacher", why: "Builds study guides from your own unit materials." }],
+      free: "yes", pricing: "Free in all Google Workspace for Education editions, with daily limits (for example 50 chats and 3 audio overviews a day). AI Pro for Education raises the limits.",
+      privacy: { ferpa: true, ferpaNote: "Same protections as Gemini for Education: Google says it supports FERPA and COPPA compliance and doesn't train on your data.", coppa: true, dpa: "district", dpaNote: "Covered by your district's Google Workspace for Education agreement.", students: true, studentsNote: "Available to students if the district turns it on; under-18 rules apply." },
+      connects: {"roster": [], "lms": [{"n": "Google Classroom", "v": true}], "grades": [], "note": "Teachers can attach notebooks to Classroom posts. Not meant for grading."},
+      equity: { free: { s: "ok", t: "Included in Workspace for Education; some features are 18+ only." }, device: { s: "ok", t: "Web, Android and iOS." }, lang: { s: "ok", t: "80+ languages." }, access: { s: "warn", t: "No accessibility report found." } },
+      urls: ["https://edu.google.com/intl/ALL_us/ai-notebooklm/"] },
+    { id: "copilot", name: "Microsoft Copilot", company: "Microsoft", cat: "general", ease: 1, verified: true, subjects: ["all"],
+      desc: "Microsoft's AI assistant for schools on Microsoft 365. Copilot Chat drafts, summarizes and translates; the full version works inside Word, Outlook, Excel and Teams, and its Teach feature helps with lesson plans and rubrics.",
+      uses: ["Staff emails", "Agendas", "Schedules in Excel", "Summaries", "Lesson plans (Teach)"],
+      personas: [{ id: "admin", top: true, why: "Works inside Outlook, Word, Excel and Teams, where admin work already happens." }, { id: "office", why: "Quick drafts and translations with your school login." }, { id: "teacher", why: "The Teach feature helps with lessons and rubrics in Microsoft schools." }, { id: "counselor", why: "Protected chat with your school account." }],
+      free: "yes", pricing: "Copilot Chat is included with Microsoft 365 A1, A3 and A5 education licenses. Microsoft 365 Copilot academic add-on: $18/user/month (priced as of October 2025).",
+      privacy: { ferpa: false, ferpaNote: "Microsoft says data stays in your school's account and is never used to train its foundation models. FERPA wasn't named on the pages checked.", coppa: null, dpa: "district", dpaNote: "Covered by your district's Microsoft 365 agreement.", students: true, studentsNote: "Blocked under 13. For students 13–17, it stays off until district IT sets their age group." },
+      connects: {"roster": [{"n": "Infinite Campus", "v": true, "via": "School Data Sync"}, {"n": "Skyward", "v": true, "via": "School Data Sync"}, {"n": "Aeries", "v": true, "via": "School Data Sync"}, {"n": "Synergy", "v": true, "via": "School Data Sync"}, {"n": "ClassLink", "v": true, "via": "School Data Sync"}], "lms": [{"n": "Microsoft Teams", "v": true}], "grades": [{"n": "Canvas", "v": true, "via": "Microsoft 365 LTI"}, {"n": "Schoology", "v": true, "via": "Microsoft 365 LTI"}, {"n": "Blackboard", "v": true, "via": "Microsoft 365 LTI"}, {"n": "Brightspace", "v": true, "via": "Microsoft 365 LTI"}, {"n": "Moodle", "v": true, "via": "Microsoft 365 LTI"}], "paid": "Microsoft's School Data Sync is free with Microsoft 365 education licenses.", "note": "PowerSchool isn't on Microsoft's School Data Sync list. A Teams-to-Infinite Campus gradebook sync is reported but not confirmed."},
+      equity: { free: { s: "ok", t: "No extra cost with Microsoft 365 A1, A3 or A5 licenses; for students 13\u201317, IT must turn it on." }, device: { s: "ok", t: "Works on the web and in the Windows app." }, lang: { s: "ok", t: "48 languages for school accounts." }, access: { s: "warn", t: "Microsoft tests its products against WCAG, but we found no Copilot-specific report." } },
+      urls: ["https://www.microsoft.com/en-us/education/copilot"] },
+    { id: "chatgpt", name: "ChatGPT for Teachers", company: "OpenAI", cat: "general", ease: 1, verified: false, subjects: ["all"],
+      desc: "A version of ChatGPT for K–12 educators with teacher-focused features. ChatGPT Edu is the separate version districts and universities buy for staff.",
+      uses: ["Planning", "Writing help", "Custom GPTs", "Brainstorming"],
+      personas: [{ id: "teacher", why: "Flexible for any subject once you have a good prompt." }, { id: "admin", why: "Drafting and analysis for big writing tasks." }, { id: "counselor", why: "Helps draft resources and plain-language messages." }],
+      free: "review", pricing: "Reported as free for verified US K–12 educators for a limited time (reported end dates differ). ChatGPT Edu: district contract, price not published.",
+      privacy: { ferpa: false, ferpaNote: "Reported to support FERPA, but we couldn't load OpenAI's official page to confirm.", coppa: null, dpa: "review", dpaNote: "Check whether your district has an agreement before using it with any student information.", students: false, studentsNote: "Teacher version is for educators, not students." },
+      review: "OpenAI's official pages didn't load when we checked, so price and privacy details come from news reports. Confirm on openai.com.",
+      connects: {"roster": [], "lms": [], "grades": [], "note": "Reported to connect to Google Drive, Microsoft 365 and Canva files. No SIS or LMS connection found, and OpenAI's pages didn't load to confirm."},
+      equity: { free: { s: "unknown", t: "Reported free for verified US K\u201312 staff for a limited time and not for students; OpenAI's page didn't load." }, device: { s: "unknown", t: "Device details not confirmed." }, lang: { s: "unknown", t: "About 59 interface languages reported; not confirmed." }, access: { s: "unknown", t: "No accessibility statement found." } },
+      urls: ["https://openai.com/"] },
+    { id: "canva", name: "Canva for Education", company: "Canva", cat: "create", ease: 1, verified: false, subjects: ["all"],
+      desc: "Design tool for flyers, slides, newsletters and posters, with Magic Studio AI to draft text, resize designs and translate.",
+      uses: ["Flyers & posters", "Newsletters", "Slides", "Translate designs"],
+      personas: [{ id: "office", why: "Polished flyers and newsletters fast, with built-in translation." }, { id: "teacher", why: "Class slides, posters and student design projects." }, { id: "counselor", why: "Eye-catching college and career handouts." }],
+      free: "review", pricing: "Reported as free for K–12 teachers and students.",
+      privacy: { ferpa: true, ferpaNote: "Reported as FERPA and COPPA certified by iKeepSafe, but Canva's official page didn't load when we checked.", coppa: true, dpa: "review", dpaNote: "Reported as a National DPA signatory. Confirm with your district.", students: true, studentsNote: "Students can join a teacher's class workspace." },
+      review: "Canva's official pages didn't load when we checked; these details come from search results.",
+      connects: {"roster": [], "lms": [{"n": "Google Classroom", "v": false}, {"n": "Canvas", "v": false}, {"n": "Schoology", "v": false, "via": "LTI"}, {"n": "Microsoft Teams", "v": false}], "grades": [], "note": "Grades to Schoology are promised but not confirmed live. Canva's pages didn't load, so these are from search results."},
+      equity: { free: { s: "unknown", t: "Reported free for K\u201312 teachers, students and districts; Canva's page didn't load to confirm." }, device: { s: "unknown", t: "Device details not confirmed." }, lang: { s: "unknown", t: "Translation reported to cover 100+ languages; not confirmed." }, access: { s: "unknown", t: "WCAG 2.1 AA with a VPAT is reported; not confirmed." } },
+      urls: ["https://www.canva.com/education/"] },
+    { id: "eduaide", name: "Eduaide.Ai", company: "Eduaide", cat: "plan", ease: 2, verified: true, subjects: ["all"],
+      desc: "A teacher planning assistant with 100+ resource types, such as graphic organizers, question sets and games, plus feedback and rubric helpers.",
+      uses: ["Graphic organizers", "Rubrics", "Question sets", "Feedback"],
+      personas: [{ id: "teacher", why: "Lots of resource formats beyond worksheets." }, { id: "sped", why: "Graphic organizers and scaffolds on demand." }],
+      free: "limited", pricing: "Free plan with monthly limits (Eduaide's pages say 24 credits or 8 resources a month). Pro: $49.99/year. School plans: custom.",
+      privacy: { ferpa: false, ferpaNote: "We didn't find a FERPA claim. Eduaide says it tries to block and delete student PII if entered.", coppa: null, dpa: "review", dpaNote: "Ask about a DPA before using it for anything with student information.", students: false, studentsNote: "For adults only: Eduaide says it is not for people under 18." },
+      connects: {"roster": [], "lms": [], "grades": [], "note": "Google sign-in, plus export to Google Docs, Google Forms, Word or PDF. No SIS or LMS connection found."},
+      equity: { free: { s: "warn", t: "Free plan with monthly limits, and adults only, so no student access." }, device: { s: "unknown", t: "Device details not published." }, lang: { s: "unknown", t: "Eduaide's pages give different counts (15+ to 26+)." }, access: { s: "unknown", t: "No accessibility statement found." } },
+      urls: ["https://www.eduaide.ai/pricing", "https://www.eduaide.ai/privacy-center"] },
+  ];
+
+  const TERMS = [
+    { id: "ferpa", abbr: "FERPA", full: "Family Educational Rights and Privacy Act", kind: "privacy", def: "The federal law that protects student education records. Schools can share records with a vendor only for a school purpose and under the school's control, which is why districts sign agreements before staff use a tool with student information." },
+    { id: "coppa", abbr: "COPPA", full: "Children's Online Privacy Protection Act", kind: "privacy", def: "A federal law about collecting personal information from children under 13 online. Most high schoolers are 13 or older, but it still matters for younger students and for tools whose terms set a minimum age." },
+    { id: "cipa", abbr: "CIPA", full: "Children's Internet Protection Act", kind: "privacy", def: "Requires schools that get E-rate funding to filter harmful content and have an internet safety policy. It affects which AI sites your network allows." },
+    { id: "dpa", abbr: "DPA", full: "Data Privacy Agreement", kind: "privacy", def: "A signed contract between a district and a vendor that spells out what student data the tool can collect, how it is protected, and when it is deleted. No DPA usually means: no student information in that tool." },
+    { id: "sdpc", abbr: "SDPC", full: "Student Data Privacy Consortium", kind: "privacy", def: "A national group of districts and states that shares standard DPAs. Many districts check the SDPC registry to see whether a vendor already signed an agreement in their state." },
+    { id: "pii", abbr: "PII", full: "Personally identifiable information", kind: "privacy", def: "Anything that points to a specific student or family: names, ID numbers, birthdates, addresses, photos, or a detail so specific it gives away who it is. Remove it before you paste anything into AI." },
+    { id: "aup", abbr: "AI policy", full: "District AI / acceptable use policy", kind: "privacy", def: "Your district's rules for which AI tools staff and students may use, and how. It usually names approved tools and says what data can go into them. When in doubt, ask your tech coordinator." },
+    { id: "iep", abbr: "IEP", full: "Individualized Education Program", kind: "school", def: "A legal plan for a student who qualifies for special education. It lists goals, services and accommodations. AI can help draft wording, but the IEP team decides, and student details must stay out of non-approved tools." },
+    { id: "504", abbr: "504 plan", full: "Section 504 accommodation plan", kind: "school", def: "A plan that gives a student with a disability equal access through accommodations, like extra time or preferential seating, without specialized instruction." },
+    { id: "mtss", abbr: "MTSS", full: "Multi-Tiered System of Supports", kind: "school", def: "A school-wide framework that sorts support into tiers: Tier 1 for everyone, Tier 2 for small groups, Tier 3 for intensive help. It covers academics and behavior." },
+    { id: "rti", abbr: "RTI", full: "Response to Intervention", kind: "school", def: "The academic side of tiered support: screen students, give targeted help, and check progress often to see if it's working." },
+    { id: "pbis", abbr: "PBIS", full: "Positive Behavioral Interventions and Supports", kind: "school", def: "A framework for teaching and rewarding expected behavior instead of only reacting to problems. Behavior plans often use its language." },
+    { id: "plc", abbr: "PLC", full: "Professional Learning Community", kind: "school", def: "A team of teachers, often by grade or subject, who meet regularly to look at student work and data and plan next steps together." },
+    { id: "lms", abbr: "LMS", full: "Learning Management System", kind: "school", def: "Where classes live online: assignments, grades and materials. Google Classroom, Canvas and Schoology are common examples." },
+    { id: "sis", abbr: "SIS", full: "Student Information System", kind: "school", def: "The official database for enrollment, attendance, schedules and report-card grades, such as PowerSchool or Infinite Campus. Treat anything from it as sensitive." },
+    { id: "udl", abbr: "UDL", full: "Universal Design for Learning", kind: "school", def: "Planning lessons so every student can access them from the start: several ways to take in information, show learning and stay engaged." },
+    { id: "ml", abbr: "ML / ELL", full: "Multilingual learner / English language learner", kind: "school", def: "A student who is learning English while learning content. AI translation and leveled texts can help, but have a fluent speaker check family-facing translations." },
+    { id: "differentiation", abbr: "Differentiation", full: "Adjusting instruction for different learners", kind: "school", def: "Changing the content, process or product of a lesson so students at different levels can all reach the goal. AI is good at fast first drafts of leveled versions." },
+    { id: "scaffolding", abbr: "Scaffolding", full: "Temporary supports", kind: "school", def: "Supports like sentence starters, graphic organizers or worked examples that help a student do a task now and are removed as they grow." },
+    { id: "formative", abbr: "Formative assessment", full: "Checks for understanding during learning", kind: "school", def: "Low-stakes checks, like exit tickets or quick polls, that tell you what to reteach tomorrow. Not for the gradebook." },
+    { id: "summative", abbr: "Summative assessment", full: "End-of-unit measure", kind: "school", def: "A test, project or essay that measures what students learned at the end of a unit or course." },
+    { id: "exit-ticket", abbr: "Exit ticket", full: "A 2–3 question check at the end of class", kind: "school", def: "A quick formative check students answer before leaving. Sorting the answers tells you who's ready to move on." },
+    { id: "rubric", abbr: "Rubric", full: "A scoring guide", kind: "school", def: "A table that lists the criteria for a task and describes what each level of quality looks like, so grading is fair and students know the target." },
+    { id: "standards", abbr: "Standards", full: "State learning standards (e.g. CCSS, NGSS)", kind: "school", def: "What students should know and be able to do in each grade and subject. Ask AI to align to your state's standards by code, then double-check the codes." },
+    { id: "dok", abbr: "DOK", full: "Depth of Knowledge", kind: "school", def: "A 1–4 scale of how complex a task's thinking is, from recall (1) to extended reasoning (4). Useful for asking AI for harder or easier questions." },
+    { id: "lexile", abbr: "Lexile", full: "A reading-level measure", kind: "school", def: "A number that estimates how hard a text is to read. AI leveling tools often target a Lexile or grade band; check the output, since AI estimates can be off." },
+    { id: "genai", abbr: "Generative AI", full: "AI that creates new text, images or audio", kind: "ai", def: "Tools like ChatGPT, Gemini and Copilot that produce new content from your instructions, instead of just finding existing content." },
+    { id: "llm", abbr: "LLM", full: "Large language model", kind: "ai", def: "The engine behind AI chat tools. It predicts likely next words from patterns in huge amounts of text. That makes it fluent, but not automatically correct." },
+    { id: "prompt", abbr: "Prompt", full: "What you type to the AI", kind: "ai", def: "Your instructions. Good prompts name the role, the grade level, the goal, the format and any limits, just like a clear assignment sheet." },
+    { id: "system-prompt", abbr: "System prompt", full: "Standing instructions for every chat", kind: "ai", def: "Instructions you set once, such as your subject, grade and tone, so you don't repeat them. Called Gems in Gemini, custom GPTs or projects in ChatGPT, and agents in Copilot." },
+    { id: "hallucination", abbr: "Hallucination", full: "Confident but wrong output", kind: "ai", def: "When AI makes up facts, quotes, citations or standards codes that sound real. Always check facts, sources and standards before anything reaches students or families." },
+    { id: "detector", abbr: "AI detector", full: "Tools that claim to spot AI writing", kind: "ai", def: "AI-writing detectors are unreliable: they miss AI text and wrongly flag human writing, especially from multilingual learners. Don't use a detector score alone as evidence of cheating." },
+    { id: "bias", abbr: "Bias", full: "Unfair patterns in AI output", kind: "ai", def: "AI can repeat stereotypes from its training data, for example in example names, behavior descriptions or feedback tone. Read output with an equity lens before using it." },
+    { id: "grounding", abbr: "Grounding", full: "Answering only from sources you give it", kind: "ai", def: "Asking the AI to use only your uploaded documents, like a handbook or curriculum guide. Tools such as NotebookLM are built for this, and it cuts down on made-up answers." },
+    { id: "training", abbr: "Model training", full: "Whether your data teaches the AI", kind: "privacy", def: "Some consumer AI tools may use your chats to improve their models. Education and enterprise versions usually promise not to. Check the setting and the district agreement." },
+    { id: "sdg4", abbr: "SDG 4", full: "UN Sustainable Development Goal 4: Quality Education", kind: "school", def: "One of 17 global goals the United Nations adopted in 2015: ensure inclusive and equitable quality education and promote lifelong learning opportunities for all. Its targets cover finishing school, job skills, equal access, literacy, safe schools and teacher training." },
+    { id: "equity", abbr: "Equity", full: "Giving each student what they need to succeed", kind: "school", def: "Equality gives everyone the same thing; equity gives each person what they need to reach the same goal. For AI tools, it means asking who can't use a tool because of cost, devices, internet, language or disability." },
+    { id: "wcag", abbr: "WCAG", full: "Web Content Accessibility Guidelines", kind: "school", def: "The international standard for making websites and apps usable by people with disabilities. A 2024 federal rule (ADA Title II) requires US public schools' web content to meet WCAG 2.1 Level AA, with deadlines starting in 2026." },
+    { id: "vpat", abbr: "VPAT / ACR", full: "Voluntary Product Accessibility Template / Accessibility Conformance Report", kind: "school", def: "A vendor's report on how well its product meets accessibility standards like WCAG. Ask for one before your district buys a tool." },
+    { id: "alt-text", abbr: "Alt text", full: "A written description of an image", kind: "school", def: "Short text that a screen reader reads aloud in place of an image, so students who are blind or have low vision get the same information." },
+    { id: "rostering", abbr: "Rostering", full: "Loading class lists automatically", kind: "school", def: "Copying class lists and student accounts from the SIS into a tool, so teachers don't type them in. Most districts use a rostering service like Clever or ClassLink, which connects to SIS systems such as Infinite Campus, PowerSchool and Skyward." },
+    { id: "oneroster", abbr: "OneRoster", full: "A standard for sharing class rosters and grades", kind: "school", def: "A common format (from the education tech group 1EdTech) that lets an SIS, an LMS and apps exchange class lists and grades without custom work." },
+    { id: "lti", abbr: "LTI", full: "Learning Tools Interoperability", kind: "school", def: "A standard plug-in method that lets a tool open inside an LMS like Canvas or Schoology, often with the right class and student already selected." },
+    { id: "passback", abbr: "Grade passback", full: "Scores flow into your gradebook", kind: "school", def: "When a tool sends student scores straight into an LMS or SIS gradebook, so teachers don't re-enter them. Check what data goes along with the scores." },
+    { id: "human-loop", abbr: "Human in the loop", full: "A person reviews before it counts", kind: "ai", def: "AI drafts; an educator decides. Grades, IEP language, discipline and family messages should always get a human read before they go anywhere." },
+  ];
+
+  const PLAYS = [
+    { id: "lesson", no: 1, sdg: ["4.1"], title: "Standards-aligned lesson plan", roles: ["teacher", "coach"], subjects: [], student: false, tools: ["magicschool", "gemini", "chatgpt"],
+      prompt: "Act as an experienced [grade] [subject] teacher in [state].\nWrite a [50]-minute lesson plan on [topic] aligned to [standard code, e.g. CCSS.ELA-LITERACY.RL.9-10.2].\nInclude: a learning target in student-friendly words, a 5-minute warm-up, direct instruction, a partner activity, a 3-question exit ticket, and one way to support multilingual learners and students with IEPs.\nFormat as a table with timings. Flag anything I should double-check, including the standard code.",
+      tip: "AI often invents standards codes. Check the code against your state's standards site." },
+    { id: "levels", no: 2, sdg: ["4.5", "4.6"], incl: true, title: "Same text, three reading levels", roles: ["teacher", "sped"], subjects: ["ela", "ss", "sci"], student: false, tools: ["diffit", "magicschool", "brisk"],
+      prompt: "Rewrite the passage below at three reading levels: [grade 5], [grade 8] and [grade 10].\nKeep every key fact and vocabulary word: [list words]. Bold the vocabulary words and add a short glossary under each version.\nAfter each version, add 3 comprehension questions at DOK 1, 2 and 3.\n\nPassage:\n[paste text you have the right to use]",
+      tip: "Keep the content the same so all students discuss the same ideas." },
+    { id: "rubric", no: 3, sdg: ["4.1"], title: "Rubric from an assignment sheet", roles: ["teacher", "sped", "coach"], subjects: [], student: false, tools: ["magicschool", "brisk", "eduaide"],
+      prompt: "Create a 4-level analytic rubric (Exceeds, Meets, Approaching, Beginning) for this assignment: [paste assignment].\nCriteria: [e.g. claim, evidence, reasoning, conventions].\nWrite each cell as an observable behavior a student could self-check. Add a student-friendly 'I can' checklist version underneath.",
+      tip: "Share the checklist version with students before they start." },
+    { id: "exit", no: 4, sdg: ["4.1", "4.6"], title: "Exit tickets that sort the room", roles: ["teacher"], subjects: ["math", "sci"], student: false, tools: ["magicschool", "curipod", "khanmigo"],
+      prompt: "Write 3 exit-ticket questions for today's lesson on [topic] for [grade] [subject].\nQ1 checks the core skill. Q2 targets the most common misconception: [describe it, or ask AI to name it]. Q3 is a stretch question.\nFor each, list what a wrong answer tells me and a 5-minute reteach idea for tomorrow.",
+      tip: "Sort answers into three piles: ready, almost, reteach." },
+    { id: "family-email", no: 5, sdg: ["4.1", "4.5"], title: "Plain-language family email", roles: ["teacher", "counselor", "office", "admin"], subjects: [], student: true, tools: ["gemini", "copilot", "magicschool"],
+      prompt: "Rewrite this message to families in warm, plain language at about a 6th-grade reading level. Keep it under 150 words, lead with what families need to do and by when, and end with how to reach me.\nDo not add facts that aren't in my draft.\n\nDraft (names and IDs removed):\n[paste]",
+      tip: "Write 'your student' instead of a name, then add the name yourself in your email program." },
+    { id: "newsletter", no: 6, sdg: ["4.5"], incl: true, title: "Translated family newsletter", roles: ["office", "admin", "counselor"], subjects: [], student: false, tools: ["gemini", "copilot", "canva"],
+      prompt: "Turn these notes into a one-page family newsletter for [school name] with short headings: Dates to know, What's happening, How to help at home.\nThen translate the finished newsletter into [Spanish] and [second language]. Keep dates, times and phone numbers exactly as written. Mark any phrase where the translation might be unclear.\n\nNotes:\n[paste]",
+      tip: "Have a fluent staff member or district translator review before sending. AI translation can miss tone and local terms." },
+    { id: "iep-goals", no: 7, sdg: ["4.5"], incl: true, title: "IEP goal draft from anonymized notes", roles: ["sped"], subjects: [], student: true, tools: ["magicschool", "eduaide"],
+      prompt: "I'm a special education teacher drafting IEP goals. Using the anonymized present-levels notes below, draft 2 measurable annual goals in SMART format (condition, behavior, criterion, timeframe) and 2–3 short-term objectives for each.\nArea: [reading fluency / math calculation / self-regulation].\nUse 'Student' instead of any name.\n\nPresent levels (no names, IDs, birthdates or diagnoses):\n[paste]",
+      tip: "This is a first draft for the IEP team, not a decision. Only use a district-approved tool, and never paste the full IEP." },
+    { id: "behavior", no: 8, sdg: ["4.5", "4.a"], title: "Positive behavior plan language", roles: ["sped", "counselor", "teacher"], subjects: [], student: true, tools: ["magicschool", "gemini"],
+      prompt: "Help me write strengths-based behavior support language (PBIS style) for a [grade] student.\nTarget behavior: [describe in observable terms]. Likely function: [attention / escape / sensory / tangible]. What helps: [list].\nDraft: a replacement behavior, 3 prevention strategies, how adults will respond, and a simple student check-in card. Avoid labels and judgmental words.\nNo names or identifying details are included.",
+      tip: "Read for bias: would this wording feel fair if it were about your own child?" },
+    { id: "duty", no: 9, sdg: ["4.a"], title: "Duty schedule & bus announcement", roles: ["admin", "office"], subjects: [], student: false, tools: ["copilot", "gemini"],
+      prompt: "Here is next week's duty roster and bus changes. Write:\n1) a 30-second morning announcement for students,\n2) a short staff email with a table of who is on which duty and when,\n3) a 2-sentence text-message version for families about the bus change.\nKeep times and route numbers exactly as given.\n\nRoster and changes:\n[paste staff names and duties]",
+      tip: "Staff names are fine here; student names are not." },
+    { id: "agenda", no: 10, sdg: ["4.c"], title: "Staff meeting agenda that ends on time", roles: ["admin", "coach"], subjects: [], student: false, tools: ["copilot", "gemini", "notebooklm"],
+      prompt: "Build a [45]-minute staff meeting agenda from these topics: [list].\nPut decisions first and announcements in a 'read before' section instead of meeting time. For each item give: owner, minutes, and the decision or outcome we need.\nAdd a 5-minute celebration opener and a closing 'who does what by when' table.",
+      tip: "Send the 'read before' section the day before the meeting." },
+    { id: "grant", no: 11, sdg: ["4.c"], title: "Grant summary for the school board", roles: ["admin", "coach"], subjects: [], student: false, tools: ["notebooklm", "chatgpt", "copilot"],
+      prompt: "Summarize the attached grant [name] for a school-board update. Include: purpose, amount and timeline, who is eligible, what we must report, matching requirements, and the 3 biggest risks or deadlines.\nUse only the attached documents. If something isn't in them, say 'not stated'.\nThen draft a 150-word plain-language summary for our website.",
+      tip: "Grounding the AI in the grant document keeps it from inventing requirements." },
+    { id: "college", no: 12, sdg: ["4.3"], title: "Grade-by-grade college & career checklist", roles: ["counselor"], subjects: [], student: false, tools: ["gemini", "chatgpt", "canva"],
+      prompt: "Create a 9th–12th grade college and career planning checklist for [state] public high school students and families. Include deadlines by month for 11th and 12th grade, FAFSA timing, testing options, CTE and apprenticeship paths, and a column for 'who can help at school'.\nKeep it to one page and write at an 8th-grade reading level. Mark any dates I should verify.",
+      tip: "Deadlines change every year. Verify FAFSA and college dates on the official sites." },
+    { id: "pd", no: 13, sdg: ["4.c"], title: "60-minute PD on AI basics", roles: ["coach", "admin"], subjects: [], student: false, tools: ["notebooklm", "magicschool", "curipod"],
+      prompt: "Design a 60-minute professional development session for high school teachers new to AI. Goals: understand what AI is good and bad at, try one planning task, and know our district rules.\nInclude a hands-on activity using [approved tool], a 5-minute segment on student privacy and FERPA, a discussion on AI detectors' limits, and an exit survey.\nBase district rules only on this policy: [paste policy].",
+      tip: "Teachers learn fastest by doing one real task from their own week." },
+    { id: "dbq", no: 14, sdg: ["4.6"], title: "Primary-source analysis scaffold", roles: ["teacher"], subjects: ["ss"], student: false, tools: ["brisk", "magicschool", "khanmigo"],
+      prompt: "Create a scaffolded analysis sheet for this primary source: [title, date, paste text].\nInclude sourcing questions (who, when, why, audience), close-reading questions with line numbers, a contextualization prompt, and a claim-evidence-reasoning paragraph frame. Add sentence starters for multilingual learners.",
+      tip: "Check historical context claims against your textbook or a trusted source." },
+    { id: "math-ex", no: 15, sdg: ["4.6"], title: "Worked examples & misconceptions", roles: ["teacher", "sped"], subjects: ["math"], student: false, tools: ["khanmigo", "magicschool", "chatgpt"],
+      prompt: "For [skill, e.g. solving two-step linear equations], write:\n- 2 fully worked examples with each step explained in plain words,\n- 1 example with a common mistake for students to find and fix,\n- 4 practice problems getting harder, with an answer key.\nShow every arithmetic step so I can check the math.",
+      tip: "AI makes arithmetic slips. Work the answer key yourself before handing it out." },
+    { id: "lab", no: 16, sdg: ["4.5", "4.a"], title: "Lab procedure to student-friendly steps", roles: ["teacher", "sped"], subjects: ["sci", "cte"], student: false, tools: ["magicschool", "diffit", "canva"],
+      prompt: "Rewrite this lab procedure as numbered student steps with one action per step, a materials checklist, and safety callouts in bold before the step they apply to. Then make a picture-supported version for students who need it, describing which icon goes with each step.\n\nProcedure:\n[paste]",
+      tip: "Keep your school's official safety rules in charge; AI wording supports them, it doesn't replace them." },
+    { id: "wl-story", no: 17, sdg: ["4.7"], title: "Comprehensible-input story", roles: ["teacher"], subjects: ["wl"], student: false, tools: ["chatgpt", "gemini", "curipod"],
+      prompt: "Write a 200-word story in [Spanish] for [Spanish 2] students using mostly high-frequency words and these target structures: [list]. Repeat each structure at least 4 times.\nAfter the story, add 5 yes/no and 3 either/or questions in the target language, and a vocabulary list with English meanings.",
+      tip: "Read it aloud first; fix anything that sounds unnatural to you." },
+    { id: "ela-disc", no: 18, sdg: ["4.6"], title: "Discussion questions for a novel", roles: ["teacher"], subjects: ["ela"], student: false, tools: ["brisk", "magicschool", "curipod"],
+      prompt: "Create Socratic seminar questions for chapters [x–y] of [book]. Include 3 opening questions, 4 core questions tied to [theme], and 2 closing questions connecting to students' lives. Add text-evidence page prompts and a peer-feedback tracker.",
+      tip: "Check quotes and page numbers against your edition; AI may misquote." },
+    { id: "cte-scn", no: 19, sdg: ["4.4"], title: "Real-world industry scenario", roles: ["teacher", "counselor"], subjects: ["cte"], student: false, tools: ["chatgpt", "gemini", "magicschool"],
+      prompt: "Write a realistic workplace scenario for a [course, e.g. Health Science / Culinary / IT] class where students must [skill]. Include a client or manager request, constraints (budget, time, safety), the deliverable, and a grading checklist tied to [industry certification or standard].",
+      tip: "Ask a local industry partner to sanity-check the scenario." },
+    { id: "absence", no: 20, sdg: ["4.1"], title: "Attendance & absence letter set", roles: ["office", "counselor", "admin"], subjects: [], student: true, tools: ["gemini", "copilot"],
+      prompt: "Write three versions of an attendance letter to families: (1) friendly first notice, (2) concerned second notice with an invitation to meet, (3) formal notice that follows [state] attendance law as described here: [paste district language].\nTone: supportive, never shaming. Use [Student Name] and [Date] as placeholders.",
+      tip: "Fill in the placeholders in your SIS or mail-merge, not in the AI tool." },
+    { id: "bias-check", no: 21, sdg: ["4.5", "4.7"], incl: true, title: "Cultural bias check on a lesson", roles: ["teacher", "coach"], subjects: [], student: false, tools: ["magicschool", "gemini", "copilot"],
+      prompt: "Review the lesson materials below with an equity lens for a diverse public high school.\nCheck for: stereotypes, examples that assume one culture, family structure, income level or religion, names and images that represent only some groups, idioms that confuse multilingual learners, and topics that could be harmful to students with lived experience.\nFor each issue, quote the line, explain why it matters, and suggest a replacement. Then list 3 ways to include perspectives that are missing.\n\nMaterials:\n[paste]",
+      tip: "AI has its own blind spots. Ask a colleague, and your students, too." },
+    { id: "accessible", no: 22, sdg: ["4.5", "4.a"], incl: true, title: "Make materials work for every sense", roles: ["sped", "teacher", "coach"], subjects: [], student: false, tools: ["magicschool", "copilot", "gemini"],
+      prompt: "Make the handout below accessible for a student who is blind or has low vision and a student who is Deaf or hard of hearing.\n1) Rewrite it with clear headings, short paragraphs and lists so a screen reader reads it in a logical order.\n2) Write alt text for each image or diagram I describe: [describe images].\n3) For the video [title/link], list what captions and a transcript must include, and draft a short audio description of key visuals.\n4) Suggest a hands-on or tactile alternative for any visual-only activity.\n\nHandout:\n[paste]",
+      tip: "Check your work with the screen reader built into your device, and ask your vision or hearing specialist." },
+    { id: "low-literacy", no: 23, sdg: ["4.5"], incl: true, title: "Family message anyone can read", roles: ["office", "counselor", "teacher"], subjects: [], student: false, tools: ["gemini", "copilot", "canva"],
+      prompt: "Rewrite this school message for families who may have limited reading skills or are new to US schools.\nUse short sentences, common words and a 3rd–4th grade reading level. Put the one action families must take first, in bold. Explain any school words (like 'conference' or 'IEP') in plain language. Suggest 2–3 simple icons that could go next to key points.\nAlso write a 30-second phone or voicemail script with the same information.\n\nMessage:\n[paste]",
+      tip: "A voice message or a phone call often reaches more families than a letter." },
+    { id: "unplugged", no: 24, sdg: ["4.5", "4.1"], incl: true, title: "Device-free version of a lesson", roles: ["teacher"], subjects: [], student: false, tools: ["magicschool", "chatgpt", "eduaide"],
+      prompt: "Here is a lesson that depends on student devices and internet: [paste or describe].\nCreate a version that works with no devices, for days when Wi-Fi is down or for students without a device or internet at home. Keep the same learning target. Use paper, cards, group roles, movement or a whiteboard. List what to print or prepare, and how to give students who missed the online version the same chance at full credit.",
+      tip: "Plan this before you need it. Families without home internet will thank you." },
+    { id: "newcomer", no: 25, sdg: ["4.5"], incl: true, title: "Newcomer welcome pack", roles: ["counselor", "office", "teacher"], subjects: [], student: false, tools: ["gemini", "copilot", "canva"],
+      prompt: "Create a welcome pack for a newly arrived multilingual student and family joining [school name] in grade [9–12]. Their home language is [language].\nInclude: a one-page 'first week' guide (bell schedule basics, lunch, where to get help), 15 survival phrases in English with translations, a map checklist of key places, who to contact at school, and a short note from the counselor.\nKeep times and room numbers exactly as I give them: [paste details]. Mark any translation a fluent speaker should check.",
+      tip: "Pair the student with a peer buddy who speaks their language, if you can." },
+  ];
+
+  const SYSP = [
+    { id: "sys-teacher", title: "Teacher planning partner", roles: ["teacher"], where: "gemini",
+      prompt: "You are my planning partner. I teach [grade] [subject] at a public high school in [state]. My classes include multilingual learners and students with IEPs and 504 plans.\nWhen I ask for materials:\n- Align to [state] standards and show the standard code, flagged for me to verify.\n- Offer a supported version and a stretch version.\n- Keep student-facing text at grade level unless I ask otherwise.\n- Use tables for plans and keep explanations short.\n- Never ask for or use student names or identifying details. If I paste any, remind me to remove them.\n- Say when you're unsure instead of guessing.",
+      example: "Example fill-in: 10th grade Biology in Ohio; two sections of co-taught classes.", tryIt: "Plan Monday's lesson on cell transport with a lab-free option." },
+    { id: "sys-sped", title: "Special ed co-planner", roles: ["sped"], where: "magicschool",
+      prompt: "You support a high school special education team. Help me adapt materials, draft measurable goal language, and suggest accommodations and scaffolds.\nRules:\n- Refer to students only as 'Student' or 'Student A'. Never request names, IDs, diagnoses or birthdates.\n- Write goals in condition / behavior / criterion / timeframe format.\n- Use strengths-based, person-first language.\n- Remind me that the IEP team makes all decisions and that drafts need team review.\n- Follow our district AI policy: [paste the relevant rule].",
+      tryIt: "Turn this worksheet into a version with chunked steps and sentence starters." },
+    { id: "sys-counselor", title: "Counselor communications helper", roles: ["counselor"], where: "gemini",
+      prompt: "You help a high school counselor write clear, warm messages and planning resources for students and families.\n- Write at about an 8th-grade reading level; offer a Spanish version on request.\n- Be encouraging and non-judgmental; never diagnose or give medical or legal advice.\n- For anything about safety, self-harm or abuse, tell me to follow our school's crisis protocol instead of drafting a response.\n- Don't ask for or keep student names or personal details.",
+      tryIt: "Draft a reminder to seniors about the scholarship workshop on Thursday." },
+    { id: "sys-admin", title: "Principal's chief of staff", roles: ["admin"], where: "copilot",
+      prompt: "You are the chief of staff for a public high school principal. Help me with staff communications, meeting agendas, schedules, board summaries and grant reporting.\n- Lead with the decision or action needed.\n- Keep staff emails under 200 words with bullets for dates and owners.\n- When summarizing documents, use only what's in them and say 'not stated' for gaps.\n- Match a calm, positive, professional school voice.\n- Never include student names or personnel matters in drafts.",
+      tryIt: "Turn these notes into Friday's staff update with a 'needs your action' section." },
+    { id: "sys-office", title: "Front desk helper", roles: ["office"], where: "copilot",
+      prompt: "You help the front office of [school name] write notices, phone scripts, sign-in instructions and family messages.\n- Use short sentences and a friendly, welcoming tone.\n- Keep dates, times, room numbers and phone numbers exactly as I give them.\n- When I ask for a translation, keep formatting and mark unclear phrases for review.\n- Never include student names, ID numbers, health or custody information.",
+      tryIt: "Write a sign for the front door about the new visitor check-in process." },
+    { id: "sys-coach", title: "AI rollout coach", roles: ["coach", "admin"], where: "notebooklm",
+      prompt: "You help an instructional coach plan teacher PD and AI tool rollouts. Use only the documents I upload (our district AI policy, approved-tool list and curriculum guides).\n- When asked if a tool or use is allowed, quote the policy section or say it isn't covered.\n- Design PD that is hands-on and under 60 minutes.\n- Include a privacy check (FERPA, DPA status) in every rollout plan.",
+      tryIt: "Is it okay for teachers to use AI to give feedback on student essays? Cite the policy." },
+  ];
+  const WHERE = {
+    gemini: "Gemini: open Gems → New Gem and paste into Instructions.",
+    copilot: "Copilot: create an agent (or a notebook) and paste into its instructions.",
+    magicschool: "MagicSchool: paste at the top of a Raina chat, or save it as a custom tool if your plan allows.",
+    notebooklm: "NotebookLM: upload your policy docs to a notebook, then paste this into the chat's custom instructions.",
+  };
+
+  const TOP5 = {
+    teacher: [["play", "lesson", "Saves the most time every single week."], ["play", "levels", "One text, every reader in the room."], ["sys", "sys-teacher", "Set your grade and subject once, skip the re-explaining."], ["play", "exit", "Tells you exactly what to reteach tomorrow."], ["play", "rubric", "Clear targets mean faster, fairer grading."]],
+    sped: [["sys", "sys-sped", "Builds privacy and person-first language into every chat."], ["play", "iep-goals", "A strong first draft for the team to edit."], ["play", "levels", "Accessible versions without changing the content."], ["play", "behavior", "Strengths-based language, fast."], ["play", "lab", "Chunked steps for any procedure."]],
+    counselor: [["sys", "sys-counselor", "Warm tone and a crisis-protocol guardrail, built in."], ["play", "college", "The handout families ask for most."], ["play", "family-email", "Plain language families actually read."], ["play", "absence", "Supportive attendance outreach in three steps."], ["play", "newsletter", "Reach families in their home language."]],
+    admin: [["sys", "sys-admin", "Your voice and format on every draft."], ["play", "agenda", "Meetings that end on time with clear owners."], ["play", "duty", "One roster, three audiences, two minutes."], ["play", "grant", "Grounded summaries the board can trust."], ["play", "pd", "Roll out AI with privacy front and center."]],
+    office: [["sys", "sys-office", "Keeps every time and room number exact."], ["play", "newsletter", "Translated newsletters in minutes."], ["play", "duty", "Announcements and family texts from one roster."], ["play", "absence", "Attendance letters with the right tone."], ["play", "family-email", "Clear answers to common family questions."]],
+    coach: [["sys", "sys-coach", "Answers policy questions from the real policy."], ["play", "pd", "A ready-to-run AI basics session."], ["play", "lesson", "The first win to show new teachers."], ["play", "agenda", "Tighter PLC and team meetings."], ["play", "grant", "Turn long documents into clear briefs."]],
+  };
+
+  // ---------- state ----------
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("aipbs:" + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("aipbs:" + k, JSON.stringify(v)); } catch {} },
+  };
+  const S = { view: "tools", role: store.get("role", ""), subj: "", q: "", free: false, dpa: false, school: false, works: "", layout: store.get("layout", "cards"), playRole: "", playSubj: "", playFocus: "", sysRole: "", topRole: "teacher", gq: "", gKind: "" };
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmtDate = (d) => new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const initials = (n) => n.replace(/[^A-Za-z0-9 ]/g, " ").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  const toolById = (id) => TOOLS.find((t) => t.id === id);
+  const catOf = (t) => CATS[t.cat];
+  // [[term-id|label]] in content becomes a term pop-up button
+  const rich = (s) => esc(s).replace(/\[\[([a-z0-9-]+)\|([^\]]+)\]\]/g, (_, id, label) => `<button type="button" class="term" data-term="${id}">${label}</button>`);
+  const plain = (s) => String(s || "").replace(/\[\[[a-z0-9-]+\|([^\]]+)\]\]/g, "$1");
+  $("#checkedOn").textContent = fmtDate(CHECKED);
+
+  // ---------- tabs ----------
+  const VIEWS = ["tools", "top", "plays", "sys", "glossary"];
+  function setView(v, { push = true } = {}) {
+    if (!VIEWS.includes(v)) v = "tools";
+    S.view = v;
+    for (const b of document.querySelectorAll(".tabs button")) b.setAttribute("aria-selected", String(b.dataset.view === v));
+    for (const id of VIEWS) $("#view-" + id).hidden = id !== v;
+    if (push) try { history.replaceState(null, "", "#" + v); } catch {}
+    render();
+  }
+  $(".tabs").addEventListener("click", (e) => { const b = e.target.closest("button[data-view]"); if (b) { hideBack(); setView(b.dataset.view); scrollTo({ top: 0 }); } });
+
+  // ---------- roster ----------
+  const freeLabel = { yes: "Yes", limited: "Free plan, limits", no: "Paid / district", review: "Under review" };
+  const freeCls = { yes: "yes", limited: "part", no: "", review: "" };
+  function freeHtml(t) { return `<span class="${freeCls[t.free]}">${esc(freeLabel[t.free])}</span>${t.free === "review" ? `<span class="flag" tabindex="0" data-tip="${esc(UNDER_REVIEW)}">Check</span>` : ""}`; }
+  function easeHtml(n) { return `<span class="pips" style="--pip:var(--green)">${[1, 2, 3].map((i) => `<i class="${i <= n ? "on" : ""}"></i>`).join("")}</span>${esc(EASE[n])}`; }
+  function privHtml(t) {
+    const p = t.privacy, out = [];
+    out.push(p.ferpa ? `<span class="pv ok" tabindex="0" data-tip="${esc(p.ferpaNote || "Vendor states FERPA compliance.")}">FERPA ✓</span>` : `<span class="pv warn" tabindex="0" data-tip="${esc(p.ferpaNote || UNDER_REVIEW)}">FERPA ?</span>`);
+    if (p.coppa != null) out.push(p.coppa ? `<span class="pv ok" tabindex="0" data-tip="${esc(p.coppaNote || "Vendor states COPPA compliance.")}">COPPA ✓</span>` : `<span class="pv warn" tabindex="0" data-tip="${esc(p.coppaNote || UNDER_REVIEW)}">COPPA ?</span>`);
+    const dpaTxt = { yes: "Signs DPAs", district: "District contract", review: "DPA: check" }[p.dpa];
+    out.push(`<span class="pv ${p.dpa === "review" ? "warn" : "ok"}" tabindex="0" data-tip="${esc(p.dpaNote)}">${dpaTxt}</span>`);
+    out.push(`<span class="pv" tabindex="0" data-tip="${esc(p.studentsNote)}">${p.students ? "Student-facing" : "Staff only"}</span>`);
+    out.push(eqChip(t));
+    return out.join("");
+  }
+  // Equity check: four questions, each "ok" | "warn" | "unknown"
+  const EQ = { free: "Free school-wide", device: "Any device", lang: "Languages", access: "Accessibility" };
+  const EQ_MARK = { ok: "✓", warn: "!", unknown: "?" };
+  const eqScore = (t) => Object.keys(EQ).filter((k) => t.equity?.[k]?.s === "ok").length;
+  function eqChip(t) {
+    if (!t.equity) return "";
+    const n = eqScore(t), tipTxt = "Equity check (SDG 4.5): " + Object.entries(EQ).map(([k, l]) => `${EQ_MARK[t.equity[k].s]} ${l}`).join(" · ") + ". Open the scouting report for details.";
+    return `<span class="eq${n === 4 ? " full" : ""}" tabindex="0" data-tip="${esc(tipTxt)}">Equity <b>${n}/4</b></span>`;
+  }
+  function eqList(t) {
+    return `<ul class="eqlist">${Object.entries(EQ).map(([k, l]) => { const e = t.equity[k]; return `<li><span class="${e.s}" aria-label="${e.s === "ok" ? "Yes" : e.s === "warn" ? "Partly" : "Not confirmed"}">${EQ_MARK[e.s]}</span><b>${l}</b><span>${esc(e.t)}</span></li>`; }).join("")}</ul>`;
+  }
+  // Connects with: roster = class lists & sign-in, lms = share to a class, grades = scores flow to a gradebook
+  const CONN = { roster: "Class rosters & sign-in", lms: "Share to class / LMS", grades: "Sends grades" };
+  const CONN_TIP = { roster: "Pulls class lists from the district's Student Information System, usually through a rostering service.", lms: "Posts materials or assignments into your learning management system.", grades: "Sends scores into a gradebook." };
+  const connAll = (t) => t.connects ? [...new Set(Object.keys(CONN).flatMap((k) => (t.connects[k] || []).map((x) => x.n)))] : [];
+  function connChips(t, max = 4) {
+    const c = t.connects; if (!c) return "";
+    const items = [];
+    for (const k of ["grades", "lms", "roster"]) for (const x of c[k] || []) if (!items.some((i) => i.n === x.n)) items.push({ ...x, k });
+    if (!items.length) return `<div class="conn"><span class="label">Connects with</span><span class="none" tabindex="0" data-tip="${esc(c.note || "No school-system connections found. Use it on its own and copy results in by hand.")}">Works on its own</span></div>`;
+    const tipFor = (x) => `${x.n}: ${CONN[x.k].toLowerCase()}${x.via ? " (" + x.via + ")" : ""}.${x.v ? "" : " Not confirmed on an official page."}${c.paid ? " " + c.paid : ""}`;
+    const shown = items.slice(0, max), more = items.length - shown.length;
+    return `<div class="conn"><span class="label">Connects with</span>${shown.map((x) => `<span class="sys${x.k === "grades" ? " grade" : ""}${x.v ? "" : " unv"}" tabindex="0" data-tip="${esc(tipFor(x))}">${esc(x.n)}</span>`).join("")}${more > 0 ? `<span class="sys" tabindex="0" data-tip="${esc(items.slice(max).map(tipFor).join(" · "))}">+${more}</span>` : ""}</div>`;
+  }
+  function connDetail(t) {
+    const c = t.connects;
+    return `<div class="connlist">${Object.entries(CONN).map(([k, l]) => { const xs = c[k] || []; return `<div><b><button type="button" class="term" data-term="${{ roster: "rostering", lms: "lms", grades: "passback" }[k]}">${l}</button></b><span>${xs.length ? xs.map((x) => esc(x.n) + (x.via ? ` <span class="muted">(${esc(x.via)})</span>` : "") + (x.v ? "" : ` <span class="flag" tabindex="0" data-tip="${esc(UNDER_REVIEW)}">Check</span>`)).join(", ") : '<span class="muted">None found</span>'}</span></div>`; }).join("")}</div>${c.paid ? `<p class="muted" style="font-size:14px;margin-top:6px">${esc(c.paid)}</p>` : ""}${c.note ? `<p class="muted" style="font-size:14px;margin-top:4px">${esc(c.note)}</p>` : ""}`;
+  }
+  const isTop = (t, r) => t.personas.some((p) => p.id === r && p.top);
+  function personaTags(t) {
+    return t.personas.map((p) => `<span class="persona${p.top ? " top" : ""}" tabindex="0" data-tip="${esc((p.top ? "★ Top pick for " + ROLES[p.id].label + ". " : "") + p.why)}">${p.top ? "★ " : ""}${esc(ROLES[p.id].tag)}</span>`).join("");
+  }
+  function topPickBadge(t) {
+    const r = S.role && isTop(t, S.role) ? S.role : null;
+    return r ? `<span class="toppick" tabindex="0" data-tip="${esc(t.personas.find((p) => p.id === r).why)}">★ Top pick for ${esc(ROLES[r].label)}</span>` : "";
+  }
+  function filteredTools() {
+    const q = S.q.trim().toLowerCase();
+    let list = TOOLS.filter((t) => {
+      if (S.role && !t.personas.some((p) => p.id === S.role)) return false;
+      if (S.role === "teacher" && S.subj && !(t.subjects.includes("all") || t.subjects.includes(S.subj))) return false;
+      if (S.free && !(t.free === "yes" || t.free === "limited")) return false;
+      if (S.dpa && t.privacy.dpa === "review") return false;
+      if (S.school && t.equity?.free.s !== "ok") return false;
+      if (S.works && !connAll(t).includes(S.works)) return false;
+      if (q && ![t.name, t.company, plain(t.desc), catOf(t).label, ...(t.uses || []), ...connAll(t)].join(" ").toLowerCase().includes(q)) return false;
+      return true;
+    });
+    list.sort((a, b) => S.role ? (isTop(b, S.role) - isTop(a, S.role)) || (a.ease - b.ease) || a.name.localeCompare(b.name) : a.name.localeCompare(b.name));
+    return list;
+  }
+  function renderRoles() {
+    $("#roleGoals").innerHTML = Object.entries(ROLES).map(([k, r]) => `<button type="button" class="goal" data-role="${k}" aria-pressed="${S.role === k}"><b>${esc(r.label)}</b><span>${esc(r.hint)}</span></button>`).join("");
+    const sc = $("#subjChips"); sc.hidden = S.role !== "teacher";
+    sc.innerHTML = `<span class="label">Subject</span><button type="button" class="chip small" data-subj="" aria-pressed="${!S.subj}">All subjects</button>` +
+      Object.entries(SUBJECTS).map(([k, l]) => `<button type="button" class="chip small" data-subj="${k}" aria-pressed="${S.subj === k}">${esc(l)}</button>`).join("");
+  }
+  function renderTools() {
+    renderRoles();
+    $("#freeChip").setAttribute("aria-pressed", String(S.free));
+    $("#dpaChip").setAttribute("aria-pressed", String(S.dpa));
+    $("#schoolChip").setAttribute("aria-pressed", String(S.school));
+    $("#vCards").setAttribute("aria-pressed", String(S.layout === "cards"));
+    $("#vTable").setAttribute("aria-pressed", String(S.layout === "table"));
+    const list = filteredTools();
+    $("#resultLine").textContent = `Showing ${list.length} of ${TOOLS.length} tools${S.role ? ` for ${ROLES[S.role].label}` : ""}${S.role === "teacher" && S.subj ? ` · ${SUBJECTS[S.subj]}` : ""}${S.works ? ` · works with ${S.works}` : ""}${S.role ? ", top pick first, then easiest" : ", A–Z"}`;
+    const out = $("#toolsOut");
+    if (!list.length) { out.innerHTML = `<div class="empty"><h3>No tools match</h3><p class="muted">Try a different search or clear the filters.</p></div>`; return; }
+    out.innerHTML = S.layout === "table" ? tableHtml(list) : `<div class="grid">${list.map(cardHtml).join("")}</div>`;
+  }
+  function cardHtml(t) {
+    const c = catOf(t);
+    return `<article class="card" id="tool-${t.id}" style="--c:${c.color}">
+      <div class="card-head"><div class="mono" aria-hidden="true">${esc(initials(t.name))}</div>
+        <div style="min-width:0"><h3>${esc(t.name)}</h3><div class="co">${esc(t.company)}</div><span class="cat">${esc(c.label)}</span><div>${topPickBadge(t)}</div></div></div>
+      <p class="desc">${rich(t.desc)}</p>
+      <div class="personas"><span class="label">Best for</span>${personaTags(t)}</div>
+      <div class="priv">${privHtml(t)}</div>
+      ${connChips(t)}
+      <div class="card-stats">
+        <div><div class="label">Free for teachers?</div><div class="v">${freeHtml(t)}</div></div>
+        <div><div class="label">Ease of use</div><div class="v">${easeHtml(t.ease)}</div></div>
+      </div>
+      <div class="card-foot"><button type="button" class="btn small primary" data-open="${t.id}">Scouting report</button><span class="spacer"></span><span class="checked">${t.verified ? "Checked " + esc(fmtDate(CHECKED)) : "Partly checked"}</span></div>
+    </article>`;
+  }
+  function tableHtml(list) {
+    return `<div class="table-wrap"><table><thead><tr><th scope="col">Tool</th><th scope="col">Type</th><th scope="col">Free for teachers?</th><th scope="col">Pricing</th><th scope="col">Ease</th><th scope="col">Student data &amp; equity</th><th scope="col">Connects with</th><th scope="col">Best for</th></tr></thead>
+      <tbody>${list.map((t) => `<tr data-open="${t.id}" tabindex="0"><td><span class="name">${esc(t.name)}</span><br><span class="muted">${esc(t.company)}</span></td><td>${esc(catOf(t).label)}</td><td>${freeHtml(t)}</td><td>${esc(t.pricing)}</td><td>${easeHtml(t.ease)}</td><td><div class="priv" style="padding:0;margin:0">${privHtml(t)}</div></td><td><div class="conn" style="padding:0;margin:0">${connChips(t, 6).replace(/^<div class="conn"><span class="label">Connects with<\/span>/, "").replace(/<\/div>$/, "")}</div></td><td><div class="personas" style="padding:0;margin:0">${personaTags(t)}</div></td></tr>`).join("")}</tbody></table></div>`;
+  }
+  $("#roleGoals").addEventListener("click", (e) => { const b = e.target.closest("[data-role]"); if (!b) return; S.role = S.role === b.dataset.role ? "" : b.dataset.role; S.subj = ""; store.set("role", S.role); if (S.role) S.topRole = S.role; renderTools(); });
+  $("#subjChips").addEventListener("click", (e) => { const b = e.target.closest("[data-subj]"); if (!b) return; S.subj = b.dataset.subj; renderTools(); });
+  $("#q").addEventListener("input", (e) => { S.q = e.target.value; renderTools(); });
+  $("#freeChip").addEventListener("click", () => { S.free = !S.free; renderTools(); });
+  $("#dpaChip").addEventListener("click", () => { S.dpa = !S.dpa; renderTools(); });
+  $("#schoolChip").addEventListener("click", () => { S.school = !S.school; renderTools(); });
+  $("#worksWith").insertAdjacentHTML("beforeend", [...new Set(TOOLS.flatMap(connAll))].sort().map((n) => `<option value="${esc(n)}">Works with: ${esc(n)}</option>`).join(""));
+  $("#worksWith").addEventListener("change", (e) => { S.works = e.target.value; renderTools(); });
+  $("#vCards").addEventListener("click", () => { S.layout = "cards"; store.set("layout", "cards"); renderTools(); });
+  $("#vTable").addEventListener("click", () => { S.layout = "table"; store.set("layout", "table"); renderTools(); });
+
+  // ---------- drawer ----------
+  const drawer = $("#drawer");
+  function openTool(id) {
+    const t = toolById(id); if (!t) return;
+    const c = catOf(t);
+    const plays = PLAYS.filter((p) => p.tools.includes(id));
+    $("#drawerBody").innerHTML = `
+      <div class="drawer-top" style="--c:${c.color}"><div class="mono" aria-hidden="true">${esc(initials(t.name))}</div>
+        <div style="min-width:0"><h2 id="drawerTitle">${esc(t.name)}</h2><div class="muted">${esc(t.company)}</div><span class="cat">${esc(c.label)}</span></div>
+        <button type="button" class="x" data-close aria-label="Close">×</button></div>
+      <div class="sect"><span class="label">What it is</span><p>${rich(t.desc)}</p></div>
+      <div class="sect"><span class="label">Best for (tap a tag for why)</span><div class="personas">${personaTags(t)}</div></div>
+      ${t.subjects.length ? `<div class="sect"><span class="label">Subjects</span><div class="uses">${t.subjects.includes("all") ? "<span>All subjects</span>" : t.subjects.map((s) => `<span>${esc(SUBJECTS[s])}</span>`).join("")}</div></div>` : ""}
+      <div class="sect"><span class="label">Good for</span><div class="uses">${t.uses.map((u) => `<span>${esc(u)}</span>`).join("")}</div></div>
+      <div class="sect"><span class="label">Pricing</span><p><b>Free for teachers?</b> ${freeHtml(t)}</p><p>${esc(t.pricing)}</p></div>
+      <div class="sect"><span class="label">Student data &amp; privacy</span><div class="priv">${privHtml(t)}</div>
+        <ul>${[t.privacy.ferpaNote, t.privacy.dpaNote, t.privacy.studentsNote].filter(Boolean).map((n) => `<li>${esc(n)}</li>`).join("")}</ul></div>
+      ${t.connects ? `<div class="sect"><span class="label">Connects with your school systems</span>${connDetail(t)}<p class="muted" style="font-size:13px;margin-top:4px">Most SIS connections run through a rostering service like Clever or ClassLink. Any connection that moves student data needs a signed <button type="button" class="term" data-term="dpa">DPA</button> first.</p></div>` : ""}
+      ${t.equity ? `<div class="sect"><span class="label">Equity check · ${eqScore(t)} of 4</span><p class="muted" style="font-size:14px">Can every student and family use it? Ties to <span class="sdg" tabindex="0" data-tip="UN SDG 4, target 4.5: ${esc(SDG["4.5"])}">SDG 4.5</span></p>${eqList(t)}</div>` : ""}
+      ${(() => { const ts = [...new Set(plays.flatMap((p) => p.sdg))].sort(); return ts.length ? `<div class="sect"><span class="label">SDG 4 targets its plays support</span><div class="row" style="display:flex;gap:6px;flex-wrap:wrap">${sdgBadges(ts)}</div></div>` : ""; })()}
+      ${t.review ? `<div class="review-box"><b>Under review</b>${esc(t.review)}</div>` : ""}
+      <div class="sect"><span class="label">Ease of use</span><p>${easeHtml(t.ease)}</p></div>
+      ${plays.length ? `<div class="sect"><span class="label">Plays that use it</span><div class="uses">${plays.map((p) => `<button type="button" class="playlink" data-goto="play:${p.id}" data-from="${t.id}">Play ${p.no}: ${esc(p.title)} →</button>`).join("")}</div></div>` : ""}
+      <div class="sect"><span class="label">Official site</span><p>${t.urls.map((u) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, ""))}</a>`).join("<br>")}</p><p class="muted" style="font-size:13px">${t.verified ? "Checked on the official site " + esc(fmtDate(CHECKED)) + "." : "Partly checked on " + esc(fmtDate(CHECKED)) + "."} Prices and terms change; confirm before buying.</p></div>`;
+    if (!drawer.open) drawer.showModal();
+    $("#drawerBody [data-close]").focus();
+  }
+  drawer.addEventListener("click", (e) => { if (e.target === drawer || e.target.closest("[data-close]")) drawer.close(); });
+  document.addEventListener("click", (e) => { const o = e.target.closest("[data-open]"); if (o && !e.target.closest(".term, [data-tip]")) openTool(o.dataset.open); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.matches("tr[data-open]")) openTool(e.target.dataset.open); });
+
+  // ---------- plays ----------
+  const roleChips = (cur, attr) => `<span class="label">Role</span><button type="button" class="chip" ${attr}="" aria-pressed="${!cur}">Everyone</button>` + Object.entries(ROLES).map(([k, r]) => `<button type="button" class="chip" ${attr}="${k}" aria-pressed="${cur === k}">${esc(r.label)}</button>`).join("");
+  const sdgBadges = (list) => (list || []).map((t) => `<span class="sdg" tabindex="0" data-tip="UN SDG 4, target ${t}: ${esc(SDG[t])}">SDG ${t}</span>`).join("");
+  const guardHtml = `<div class="guard"><b>Student info</b><span>Remove names, ID numbers and other details that identify a student before you paste. Use only district-approved tools and follow your district AI policy.</span></div>`;
+  function playHtml(p) {
+    return `<article class="play" id="play-${p.id}">
+      <div class="playno">Play ${p.no}</div><h3>${esc(p.title)}</h3>
+      <div class="row">${p.roles.map((r) => `<span class="aud">${esc(ROLES[r].tag)}</span>`).join("")}${p.subjects.map((s) => `<span class="subj">${esc(SUBJECTS[s])}</span>`).join("")}</div>
+      <div class="row">${sdgBadges(p.sdg)}</div>
+      ${p.student ? guardHtml : ""}
+      <pre id="prompt-${p.id}">${esc(p.prompt)}</pre>
+      <div class="row"><button type="button" class="btn small primary" data-copy="prompt-${p.id}">Copy prompt</button></div>
+      <p class="tip"><b>Coach's tip:</b> ${esc(p.tip)}</p>
+      <div class="row"><span class="label">Run it in</span>${p.tools.map((id) => { const t = toolById(id); return t ? `<button type="button" class="tool-chip" data-open="${id}" style="--c:${catOf(t).color}">${esc(t.name)}</button>` : ""; }).join("")}</div>
+    </article>`;
+  }
+  function renderPlays() {
+    $("#playChips").innerHTML = roleChips(S.playRole, "data-prole");
+    const ps = $("#playSubj"); ps.hidden = S.playRole !== "teacher";
+    ps.innerHTML = `<span class="label">Subject</span><button type="button" class="chip small" data-psubj="" aria-pressed="${!S.playSubj}">All subjects</button>` + Object.entries(SUBJECTS).map(([k, l]) => `<button type="button" class="chip small" data-psubj="${k}" aria-pressed="${S.playSubj === k}">${esc(l)}</button>`).join("");
+    $("#playFocus").innerHTML = `<span class="label">Focus</span><button type="button" class="chip" data-focus="" aria-pressed="${!S.playFocus}">All plays</button><button type="button" class="chip incl" data-focus="incl" aria-pressed="${S.playFocus === "incl"}">★ Inclusion</button>` +
+      Object.keys(SDG).map((t) => `<button type="button" class="chip small" data-focus="${t}" aria-pressed="${S.playFocus === t}" title="${esc(SDG[t])}">SDG ${t}</button>`).join("");
+    const list = PLAYS.filter((p) => (!S.playFocus || (S.playFocus === "incl" ? p.incl : p.sdg.includes(S.playFocus))) && (!S.playRole || p.roles.includes(S.playRole)) && (S.playRole !== "teacher" || !S.playSubj || !p.subjects.length || p.subjects.includes(S.playSubj)));
+    $("#playsOut").innerHTML = list.length ? list.map(playHtml).join("") : `<div class="empty"><h3>No plays match</h3><p class="muted">Try another role or focus.</p></div>`;
+  }
+  $("#playChips").addEventListener("click", (e) => { const b = e.target.closest("[data-prole]"); if (!b) return; S.playRole = b.dataset.prole; S.playSubj = ""; renderPlays(); });
+  $("#playFocus").addEventListener("click", (e) => { const b = e.target.closest("[data-focus]"); if (!b) return; S.playFocus = b.dataset.focus; renderPlays(); });
+  $("#playSubj").addEventListener("click", (e) => { const b = e.target.closest("[data-psubj]"); if (!b) return; S.playSubj = b.dataset.psubj; renderPlays(); });
+
+  // ---------- system prompts ----------
+  function sysHtml(x) {
+    return `<article class="play template" id="sys-${x.id}">
+      <div class="playno">System prompt</div><h3>${esc(x.title)}</h3>
+      <div class="row">${x.roles.map((r) => `<span class="aud">${esc(ROLES[r].tag)}</span>`).join("")}</div>
+      <pre id="sysp-${x.id}">${esc(x.prompt)}</pre>
+      <div class="row"><button type="button" class="btn small primary" data-copy="sysp-${x.id}">Copy system prompt</button></div>
+      ${x.example ? `<p class="tip">${esc(x.example)}</p>` : ""}
+      <p class="tip"><b>Then try:</b> “${esc(x.tryIt)}”</p>
+      <details><summary>Where to paste it</summary><p style="margin:6px 0 0">${esc(WHERE[x.where])}</p></details>
+    </article>`;
+  }
+  function renderSys() {
+    $("#sysChips").innerHTML = roleChips(S.sysRole, "data-srole");
+    $("#sysOut").innerHTML = SYSP.filter((x) => !S.sysRole || x.roles.includes(S.sysRole)).map(sysHtml).join("");
+  }
+  $("#sysChips").addEventListener("click", (e) => { const b = e.target.closest("[data-srole]"); if (!b) return; S.sysRole = b.dataset.srole; renderSys(); });
+
+  // ---------- top 5 ----------
+  function renderTop() {
+    $("#topChips").innerHTML = Object.entries(ROLES).map(([k, r]) => `<button type="button" class="chip" data-trole="${k}" aria-pressed="${S.topRole === k}">${esc(r.label)}</button>`).join("");
+    $("#topOut").innerHTML = `<div class="toplist">${TOP5[S.topRole].map(([kind, id, why], i) => {
+      const x = kind === "play" ? PLAYS.find((p) => p.id === id) : SYSP.find((s) => s.id === id);
+      const pid = kind === "play" ? "tp-" + id : "ts-" + id;
+      return `<article class="topitem"><div class="rank">${i + 1}</div>
+        <h3>${esc(x.title)} <span class="kindpill ${kind}">${kind === "play" ? "Play" : "System prompt"}</span>${kind === "play" && x.student ? `<span class="pv warn" tabindex="0" data-tip="Remove names and IDs first; use district-approved tools only.">Student info</span>` : ""}</h3>
+        <p class="muted">${esc(why)}</p>${x.sdg ? `<div class="row" style="margin-top:2px">${sdgBadges(x.sdg)}</div>` : ""}
+        <div class="row"><button type="button" class="btn small primary" data-copytext="${pid}">Copy prompt</button><button type="button" class="btn small ghost" data-goto="${kind}:${id}">See full ${kind === "play" ? "play" : "prompt"}</button></div>
+        <textarea id="${pid}" hidden>${esc(x.prompt)}</textarea></article>`;
+    }).join("")}</div>`;
+  }
+  $("#topChips").addEventListener("click", (e) => { const b = e.target.closest("[data-trole]"); if (!b) return; S.topRole = b.dataset.trole; renderTop(); });
+  document.addEventListener("click", (e) => {
+    const g = e.target.closest("[data-goto]"); if (!g) return;
+    const [kind, id] = g.dataset.goto.split(":");
+    if (drawer.open) drawer.close();
+    hideBack();
+    if (kind === "play") { S.playRole = ""; S.playSubj = ""; S.playFocus = ""; setView("plays"); flashTo("play-" + id); } else { S.sysRole = ""; setView("sys"); flashTo("sys-" + id); }
+    if (g.dataset.from) showBack(g.dataset.from);
+  });
+  // Back to the tool report you came from
+  function showBack(toolId) {
+    const t = toolById(toolId); if (!t) return;
+    $("#backBtn").textContent = `← Back to ${t.name} report`;
+    $("#backBtn").dataset.tool = toolId;
+    $("#backBar").hidden = false; document.body.classList.add("has-back");
+  }
+  function hideBack() { $("#backBar").hidden = true; document.body.classList.remove("has-back"); }
+  $("#backBtn").addEventListener("click", () => { const id = $("#backBtn").dataset.tool; hideBack(); setView("tools"); openTool(id); });
+  function flashTo(elId) { requestAnimationFrame(() => { const el = document.getElementById(elId); if (!el) return; el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" }); el.classList.add("flash"); setTimeout(() => el.classList.remove("flash"), 2200); }); }
+
+  // ---------- glossary ----------
+  function renderGlossary() {
+    const q = S.gq.trim().toLowerCase();
+    const list = TERMS.filter((t) => (!S.gKind || t.kind === S.gKind) && (!q || [t.abbr, t.full, t.def].join(" ").toLowerCase().includes(q))).sort((a, b) => a.abbr.localeCompare(b.abbr, "en", { sensitivity: "base", numeric: true }));
+    const letters = new Set(list.map((t) => /[A-Z]/i.test(t.abbr[0]) ? t.abbr[0].toUpperCase() : "#"));
+    $("#az").innerHTML = ["#", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].map((l) => `<a href="#" data-letter="${l}" class="${letters.has(l) ? "" : "off"}">${l}</a>`).join("");
+    const kindName = { school: "School", privacy: "Privacy", ai: "AI" };
+    $("#termsOut").innerHTML = list.length ? list.map((t) => `<article class="tcard" id="term-${t.id}" data-letter="${/[A-Z]/i.test(t.abbr[0]) ? t.abbr[0].toUpperCase() : "#"}"><span class="kind">${kindName[t.kind]}</span><div class="abbr">${esc(t.abbr)}</div><div class="full">${esc(t.full)}</div><p>${esc(t.def)}</p></article>`).join("") : `<div class="empty"><h3>No terms match</h3><p class="muted">Try another word.</p></div>`;
+  }
+  $("#gq").addEventListener("input", (e) => { S.gq = e.target.value; renderGlossary(); });
+  $("#gKinds").addEventListener("click", (e) => { const b = e.target.closest("[data-kind]"); if (!b) return; S.gKind = b.dataset.kind; for (const x of $("#gKinds").children) x.setAttribute("aria-pressed", String(x === b)); renderGlossary(); });
+  $("#az").addEventListener("click", (e) => { const a = e.target.closest("a[data-letter]"); if (!a) return; e.preventDefault(); const el = $(`#termsOut [data-letter="${a.dataset.letter}"]`); if (el) flashTo(el.id); });
+  function goToTerm(id) { S.gq = ""; S.gKind = ""; $("#gq").value = ""; for (const x of $("#gKinds").children) x.setAttribute("aria-pressed", String(!x.dataset.kind)); setView("glossary"); flashTo("term-" + id); }
+
+  // ---------- tooltips + term pop-ups ----------
+  const tip = $("#tip"), pop = $("#termPop");
+  function overlayHost() { for (const id of ["searchDlg", "drawer"]) { const d = document.getElementById(id); if (d.open) return d; } return document.body; }
+  function hostOverlay(el) { const h = overlayHost(); if (el.parentElement !== h) h.appendChild(el); }
+  function placeTip(el) {
+    const r = el.getBoundingClientRect(); tip.style.maxWidth = Math.min(320, innerWidth - 24) + "px";
+    const tr = tip.getBoundingClientRect();
+    const left = Math.min(Math.max(12, r.left + r.width / 2 - tr.width / 2), innerWidth - tr.width - 12);
+    let top = r.bottom + 8; if (top + tr.height > innerHeight - 12) top = r.top - tr.height - 8;
+    tip.style.left = left + "px"; tip.style.top = Math.max(8, top) + "px";
+  }
+  function showTip(el) {
+    if (el.classList.contains("term")) { const t = TERMS.find((x) => x.id === el.dataset.term); if (!t || (!pop.hidden && pop.contains(el))) return; tip.innerHTML = `<b>${esc(t.abbr)}</b> · ${esc(t.full)}<br>${esc(t.def)}<span class="go">Click for more</span>`; }
+    else tip.textContent = el.dataset.tip;
+    hostOverlay(tip); tip.hidden = false; placeTip(el);
+  }
+  const hideTip = () => (tip.hidden = true);
+  const tipTarget = (e) => e.target.closest(".term, [data-tip]");
+  document.addEventListener("mouseover", (e) => { const b = tipTarget(e); if (b) showTip(b); });
+  document.addEventListener("mouseout", (e) => { if (tipTarget(e)) hideTip(); });
+  document.addEventListener("focusin", (e) => { const b = tipTarget(e); if (b) showTip(b); else hideTip(); });
+  document.addEventListener("click", (e) => { const h = e.target.closest("[data-tip]"); if (!h) return; e.preventDefault(); e.stopPropagation(); showTip(h); }, true);
+  document.addEventListener("pointerdown", (e) => { if (!tip.hidden && !e.target.closest("[data-tip], .term")) hideTip(); });
+  addEventListener("scroll", hideTip, { passive: true });
+  let popAnchor = null;
+  function openPop(id, anchor) {
+    const t = TERMS.find((x) => x.id === id); if (!t) return;
+    pop.innerHTML = `<div class="tp-head"><div><div class="tp-abbr" id="termPopTitle">${esc(t.abbr)}</div><div class="tp-full">${esc(t.full)}</div></div><button type="button" class="x" data-popclose aria-label="Close">×</button></div>
+      <p>${esc(t.def)}</p><div class="tp-actions"><button type="button" class="btn small primary" data-popgo="${t.id}">See in glossary →</button><button type="button" class="btn small ghost" data-popclose>Close</button></div>`;
+    hostOverlay(pop); pop.hidden = false; popAnchor = anchor; placePop();
+    pop.querySelector("[data-popgo]").focus({ preventScroll: true });
+  }
+  function placePop() {
+    if (pop.hidden || innerWidth <= 600) { pop.style.left = ""; pop.style.top = ""; return; }
+    const a = popAnchor && popAnchor.isConnected ? popAnchor.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 3, bottom: innerHeight / 3, width: 0 };
+    const pr = pop.getBoundingClientRect();
+    const left = Math.min(Math.max(12, a.left + a.width / 2 - pr.width / 2), innerWidth - pr.width - 12);
+    let top = a.bottom + 10; if (top + pr.height > innerHeight - 12) top = Math.max(12, a.top - pr.height - 10);
+    pop.style.left = left + "px"; pop.style.top = top + "px";
+  }
+  function closePop() { pop.hidden = true; if (popAnchor && popAnchor.isConnected) popAnchor.focus({ preventScroll: true }); popAnchor = null; }
+  document.addEventListener("click", (e) => { const b = e.target.closest(".term"); if (!b) return; e.preventDefault(); hideTip(); openPop(b.dataset.term, b); });
+  pop.addEventListener("click", (e) => {
+    if (e.target.closest("[data-popclose]")) { closePop(); return; }
+    const g = e.target.closest("[data-popgo]"); if (g) { pop.hidden = true; if (drawer.open) drawer.close(); goToTerm(g.dataset.popgo); }
+  });
+  document.addEventListener("pointerdown", (e) => { if (!pop.hidden && !pop.contains(e.target) && !e.target.closest(".term")) pop.hidden = true; });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !pop.hidden) { e.preventDefault(); e.stopPropagation(); closePop(); } }, true);
+  addEventListener("resize", placePop);
+  drawer.addEventListener("close", () => { pop.hidden = true; hideTip(); });
+
+  // ---------- copy ----------
+  const toast = $("#toast"); let toastT;
+  function say(msg) { toast.textContent = msg; toast.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => (toast.hidden = true), 2200); }
+  async function copyText(text, el) {
+    try { await navigator.clipboard.writeText(text); say("Copied. Paste it into your AI tool."); }
+    catch { if (el && el.tagName === "PRE") { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } say("Select the text and copy it with your keyboard."); }
+  }
+  document.addEventListener("click", (e) => {
+    const c = e.target.closest("[data-copy]"); if (c) { const el = document.getElementById(c.dataset.copy); copyText(el.textContent, el); return; }
+    const ct = e.target.closest("[data-copytext]"); if (ct) copyText(document.getElementById(ct.dataset.copytext).value);
+  });
+
+  // ---------- search ----------
+  const sdlg = $("#searchDlg"), sq = $("#sq"), sres = $("#sResults");
+  let sItems = [], sSel = 0;
+  function openSearch() { hideTip(); sq.value = ""; runSearch(); sdlg.showModal(); sq.focus(); }
+  function runSearch() {
+    const q = sq.value.trim().toLowerCase();
+    const hit = (s) => !q || s.toLowerCase().includes(q);
+    const groups = [
+      ["Tools", TOOLS.filter((t) => hit([t.name, t.company, plain(t.desc), ...t.uses, ...connAll(t)].join(" "))).map((t) => ({ ic: initials(t.name), c: catOf(t).color, title: t.name, sub: catOf(t).label, go: () => openTool(t.id) }))],
+      ["Plays", PLAYS.filter((p) => hit(p.title + " " + p.prompt)).map((p) => ({ ic: "P" + p.no, c: "var(--pop)", title: p.title, sub: p.roles.map((r) => ROLES[r].tag).join(" · "), go: () => { S.playRole = ""; setView("plays"); flashTo("play-" + p.id); } }))],
+      ["System prompts", SYSP.filter((x) => hit(x.title + " " + x.prompt)).map((x) => ({ ic: "SP", c: "var(--blue)", title: x.title, sub: x.roles.map((r) => ROLES[r].tag).join(" · "), go: () => { S.sysRole = ""; setView("sys"); flashTo("sys-" + x.id); } }))],
+      ["Lingo", TERMS.filter((t) => hit(t.abbr + " " + t.full + " " + t.def)).map((t) => ({ ic: t.abbr.slice(0, 3).toUpperCase(), c: "var(--green)", title: t.abbr, sub: t.full, go: () => goToTerm(t.id) }))],
+    ].map(([g, items]) => [g, q ? items : items.slice(0, 4)]);
+    sItems = []; let html = "";
+    for (const [g, items] of groups) { if (!items.length) continue; html += `<div class="sd-group">${g}</div>`; for (const it of items) { const i = sItems.push(it) - 1; html += `<button type="button" class="sd-item" role="option" data-si="${i}" aria-selected="${i === 0}" style="--c:${it.c}"><span class="ic" aria-hidden="true">${esc(it.ic)}</span><b>${esc(it.title)}</b><span class="sub">${esc(it.sub)}</span></button>`; } }
+    sres.innerHTML = html || `<div class="sd-empty"><b>No matches</b><p class="muted">Try “IEP”, “rubric”, “translate” or a tool name.</p></div>`;
+    sSel = 0;
+  }
+  function pick(i) { const it = sItems[i]; if (!it) return; sdlg.close(); it.go(); }
+  sq.addEventListener("input", runSearch);
+  sq.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); sSel = Math.max(0, Math.min(sItems.length - 1, sSel + (e.key === "ArrowDown" ? 1 : -1))); for (const b of sres.querySelectorAll(".sd-item")) b.setAttribute("aria-selected", String(+b.dataset.si === sSel)); sres.querySelector(`[data-si="${sSel}"]`)?.scrollIntoView({ block: "nearest" }); }
+    if (e.key === "Enter") { e.preventDefault(); pick(sSel); }
+  });
+  sres.addEventListener("click", (e) => { const b = e.target.closest(".sd-item"); if (b) pick(+b.dataset.si); });
+  $("#sClose").addEventListener("click", () => sdlg.close());
+  sdlg.addEventListener("click", (e) => { if (e.target === sdlg) sdlg.close(); });
+  $("#searchBtn").addEventListener("click", openSearch);
+  document.addEventListener("keydown", (e) => { if (e.key === "/" && !e.target.closest("input, textarea, [contenteditable]") && !sdlg.open) { e.preventDefault(); openSearch(); } });
+
+  // ---------- boot ----------
+  function render() {
+    $("#cTools").textContent = TOOLS.length; $("#cPlays").textContent = PLAYS.length; $("#cSys").textContent = SYSP.length; $("#cTerms").textContent = TERMS.length;
+    if (S.view === "tools") renderTools(); else if (S.view === "top") renderTop(); else if (S.view === "plays") renderPlays(); else if (S.view === "sys") renderSys(); else renderGlossary();
+  }
+  if (S.role) S.topRole = S.role;
+  setView((location.hash || "").slice(1) || "tools", { push: false });
+})();
+</script>
